@@ -1,0 +1,6 @@
+package com.cps.services;
+
+public enum Commande {
+	
+	LEFT,RIGTH,NEUTRAL ;
+}

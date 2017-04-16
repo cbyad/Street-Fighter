@@ -1,0 +1,6 @@
+package com.cps.services.character;
+
+public enum Commande {
+	
+	LEFT,RIGHT,NEUTRAL ;
+}

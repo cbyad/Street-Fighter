@@ -1,0 +1,5 @@
+package com.cps.services.engine;
+
+public class EngineContract extends EngineDecorator{
+
+}

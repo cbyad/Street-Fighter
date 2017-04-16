@@ -1,0 +1,16 @@
+package com.cps.exception;
+
+@SuppressWarnings("serial")
+public class PreconditionError extends Exception{
+
+	private String msg ;
+	
+	public PreconditionError(String msg) {
+		super(msg);
+		this.msg=msg ;
+	}
+	
+	
+	
+
+}

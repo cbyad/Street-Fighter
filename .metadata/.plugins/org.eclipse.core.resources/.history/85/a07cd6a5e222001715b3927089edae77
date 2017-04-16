@@ -1,0 +1,16 @@
+package com.cps.services.engine;
+/**
+ * Service : Moteur de jeu
+ * @author cb_mac
+ *
+ */
+public interface Engine {
+	
+	/*Observators*/
+	
+	public int getHeight();
+	public int getWidth();
+	
+	// \pre
+
+}

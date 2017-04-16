@@ -1,0 +1,11 @@
+1492366878369	Copy compilation unit
+1492366891825	Copy compilation unit
+1492366924175	Rename type 'PreconditionError'
+1492374101346	Rename package 'com.cps.services'
+1492374249877	Copy package
+1492374292351	Rename type 'Engine'
+1492374332423	Delete element
+1492374348285	Rename type 'EngineContract'
+1492374371272	Rename type 'EngineDecorator'
+1492374388263	Rename type 'EngineImpl'
+1492374401494	Rename type 'EngineImplBug'

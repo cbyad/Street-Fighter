@@ -1,0 +1,25 @@
+package com.cps.services.engine;
+
+import com.cps.services.character.Player;
+
+/**
+ * Service : Moteur de jeu
+ * @author cb_mac
+ *
+ */
+public interface Engine {
+
+	/*Observators*/
+
+	public int getHeight();
+	public int getWidth();
+
+	// \pre: i=1 ou i=2
+	public Character getChar(int i);
+
+	// \pre: i=1 ou i=2
+	public Player getPlayer(int i);
+	
+	public boolean isGameOver();
+
+}

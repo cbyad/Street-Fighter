@@ -1,0 +1,16 @@
+package com.cps.exception;
+
+@SuppressWarnings("serial")
+public class PostConditionError extends Exception{
+
+	private String msg ;
+	
+	public PostConditionError(String msg) {
+		super(msg);
+		this.msg=msg ;
+	}
+	
+	
+	
+
+}

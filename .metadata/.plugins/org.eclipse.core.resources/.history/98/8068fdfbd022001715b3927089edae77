@@ -1,0 +1,5 @@
+package com.cps.exception;
+
+public class InvariantError {
+
+}
