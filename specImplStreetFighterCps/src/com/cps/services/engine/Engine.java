@@ -7,6 +7,9 @@ import com.cps.services.character.Player;
  * @author cb_mac
  *
  */
+/****************************************
+ *  OK
+ * *************************************/
 public interface Engine {
 
 	/*Observators*/
@@ -24,7 +27,8 @@ public interface Engine {
 
 	/*Invariants*/
 
-	// \inv: isGameOver() == Character::isDead(getPlayer(i))  , \with i:int \in {1,2}
+	// \inv: (perso=getChar(i)):Character , isGameOver() == perso.isDead()  , \exist i:int \in {1,2}
+	
 
 	/*Constructors*/
 
@@ -43,10 +47,9 @@ public interface Engine {
 	// \post: (char1=getChar(1)):Character , char1.getPositionY() == 0
 	// \post: (char2=getChar(2)):Character , char2.getPositionY() == 0
 	// \post: (char1=getChar(1)):Character , char1.isFaceRight() 
-	// \post: (char2=getChar(2)):Character , !char1.isFaceRigth() 
+	// \post: (char2=getChar(2)):Character , !char2.isFaceRigth() 
 	public void init(int h, int w, int s ,Player p1 ,Player p2);
 
-	
 	/*Operators*/
 	
 	// \pre : !isGameOver()
@@ -56,15 +59,3 @@ public interface Engine {
 	public void step(Commande c1 , Commande c2);
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,7 +2,11 @@ package com.cps.services.engine;
 
 import com.cps.services.character.Player;
 
-public  abstract class EngineDecorator implements Engine{
+
+/****************************************
+ *  OK
+ * *************************************/
+public  abstract class EngineDecorator implements Engine{ 
 
 	private Engine delegate ;
 
@@ -36,7 +40,6 @@ public  abstract class EngineDecorator implements Engine{
 
 	@Override
 	public void init(int h, int w, int s, Player p1, Player p2) {
-
 		delegate.init(h, w, s, p1, p2);
 	}
 
@@ -44,6 +47,5 @@ public  abstract class EngineDecorator implements Engine{
 	public void step(Commande c1, Commande c2) {
 		delegate.step(c1, c2);
 	}
-
 
 }

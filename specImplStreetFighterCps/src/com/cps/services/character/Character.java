@@ -1,6 +1,6 @@
 package com.cps.services.character;
 /**
- * Service : Moteur de jeu
+ * Service : Personnage
  * @author cb_mac
  *
  */

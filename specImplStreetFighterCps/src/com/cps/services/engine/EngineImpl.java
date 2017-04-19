@@ -1,5 +1,6 @@
 package com.cps.services.engine;
 
+import com.cps.exception.ContractError;
 import com.cps.services.character.Player;
 
 public class EngineImpl implements Engine{
@@ -13,7 +14,6 @@ public class EngineImpl implements Engine{
 	
 	
 	public EngineImpl() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -31,7 +31,7 @@ public class EngineImpl implements Engine{
 		
 		if (i==1) return char1 ;
 		if (i==2) return char2 ;
-		else throw new Error("entier different de 1 ou 2 ");
+		else throw new ContractError("entier different de 1 ou 2 ");
 			
 	}
 
@@ -39,7 +39,7 @@ public class EngineImpl implements Engine{
 	public Player getPlayer(int i) {
 		if (i==1) return p1 ;
 		if (i==2) return p2 ;
-		else throw new Error("entier different de 1 ou 2 ");
+		else throw new ContractError("entier different de 1 ou 2 ");
 	}
 
 	@Override

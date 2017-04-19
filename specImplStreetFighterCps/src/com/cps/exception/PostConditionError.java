@@ -1,17 +1,12 @@
 package com.cps.exception;
 
 @SuppressWarnings("serial")
-public class PostConditionError extends Exception{
+public class PostConditionError extends ContractError{
 
 	
 	public PostConditionError(String msg) {
-		super(msg);
+		super("PostCondition failed: " + msg);
 	}
 	
-
-	@Override
-	public String getMessage(){ return super.getMessage();}
-	
-
 
 }

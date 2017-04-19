@@ -1,15 +1,11 @@
 package com.cps.exception;
 
 @SuppressWarnings("serial")
-public class PreConditionError extends Exception{
+public class PreConditionError extends ContractError{
 
 	
 	public PreConditionError(String msg) {
-		super(msg);
+		super("PreCondition failed"+msg);
 	}
 	
-	
-	@Override
-	public String getMessage(){ return super.getMessage();}
-
 }

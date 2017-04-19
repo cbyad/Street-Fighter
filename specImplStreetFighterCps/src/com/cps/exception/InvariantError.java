@@ -1,17 +1,13 @@
 package com.cps.exception;
 
 @SuppressWarnings("serial")
-public class InvariantError extends Exception{
+public class InvariantError extends ContractError{
 
-	
-	
+
 	public InvariantError(String msg) {
-		super(msg);
+		super("Invariant failed: " + msg);
 		
 	}
-	
-	@Override
-	public String getMessage(){ return super.getMessage();}
 	
 
 }
