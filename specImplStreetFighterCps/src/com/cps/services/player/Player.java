@@ -4,6 +4,10 @@ import com.cps.services.character.Character;
 
 public interface Player {
 
-	public boolean equals();
 	public Character getChar();
+
+	public void init();
+	
+	// \post: getChar()=c
+	public void setChar(Character c);
 }

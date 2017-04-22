@@ -1,0 +1,9 @@
+Service:			Player
+Types:				bool, int
+Observators:		getChar: [Player] -> Character
+Constructors:		init: -> [Player]
+Operators:			setChar: [Player] x Character -> [Player]
+Observations:
+			[init]
+			[setChar]
+				getChar(setChar(P,C)) = C
