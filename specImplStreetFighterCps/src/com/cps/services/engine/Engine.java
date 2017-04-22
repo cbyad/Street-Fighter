@@ -1,6 +1,7 @@
 package com.cps.services.engine;
 
-import com.cps.services.character.Player;
+import com.cps.services.character.Character;
+import com.cps.services.player.Player;
 
 /**
  * Service : Moteur de jeu

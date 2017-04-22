@@ -1,0 +1,51 @@
+Service: 			Character
+Types: 				bool, int, Commande
+Observators: 		positionX: [Character] -> int
+					positionY: [Character] -> int
+					engine: [Character] -> Engine
+					charBox: [Character] -> HitBox
+					life: [Character] -> int
+					const speed: [Character] -> int
+					faceRight: [Character] -> bool
+					dead: [Character] -> bool
+Constructors: 		init: int × int × bool × Engine x Hitbox -> [Character]
+						pre init(l,s,f,e,h) requires l > 0 && s > 0
+Operators: 			moveLeft: [Character] -> [Character]
+					moveRight: [Character] -> [Character]
+					switchSide: [Character] -> [Character]
+					step: [Character] × Commande -> [Character]
+							pre step() requires ¬dead
+Observations:
+		[invariant]:
+					positionX(C) > 0 && positionX(C) < Engine:: width(engine) - HitBox:: width(charBox)
+					positionY(C) > 0 && positionY(C) < Engine:: height(engine) - HitBox:: height(charBox)
+					dead(C) = ¬(life(C) > 0)
+		[init]:
+					life(init(l, s, f, e)) = l
+					speed(init(l, s, f, e)) = s
+					faceRight(init(l, s, f, e)) = f
+					engine(init(l, s, f, e)) = e
+					charbox(init(l, s, f, e)) = h
+		[moveLeft]:
+					(exists i, player(engine(C), i) != C => collisionwith(charBox(moveLeft(C)), charBox(player(engine(C), i)))) => positionX(moveLeft(C)) = positionX(C)
+					positionX(C) >= speed(C) && (forAll i, player(engine(C), i) != C => ¬collisionwith(charBox(moveLeft(C)), charBox(player(engine(C), i)))) => positionX(moveLeft(C)) = positionX(C) - speed(C)
+					positionX(C) < speed(C) && (forAll i, player(engine(C), i) != C => ¬collisionwith(charBox(moveLeft(C)), charBox(player(engine(C), i)))) => positionX(moveLeft(C)) = 0
+					faceRight(moveLeft(C)) = faceRight(C)
+					life(moveLeft(C)) = life(C)
+					positionY(moveLeft(C)) = positionY(C)
+		[moveRight]:
+					(exists i, player(engine(C), i) != C => collisionwith(charBox(moveRight(C)), charBox(player(engine(C), i)))) => positionX(moveRight(C)) = positionX(C)
+					Engine::width(engine) - Hitbox:: Length(charBox(C)) - positionX(C) >= speed(C) && (forAll i, player(engine(C), i) != C => ¬collisionwith(charBox(moveRight(C)), charBox(player(engine(C), i)))) => positionX(moveRight(C)) = positionX(C) + speed(C)
+					Engine::width(engine) - HitBox:: Length(charBox(C)) - positionX(C) < speed(C) && (forAll i, player(engine(C), i) != C => ¬collisionwith(charBox(moveRight(C)), charBox(player(engine(C), i)))) => positionX(moveRight(C)) = Engine::width(engine) - HitBox:: Length(charBox(C))
+					faceRight(moveRight(C)) = faceRight(C)
+					life(moveRight(C)) = life(C)
+					positionY(moveRight(C)) = positionY(C)
+		[switchSide]:
+					faceRight(switchSide(C)) != faceRight(C)
+					positionX(switchSide(C)) = positionX(C)
+					positionY(switchSide(C)) = positionY(C)
+					life(switchSide(C)) = life(C)
+		[step]:
+					step(C, LEFT) = moveLeft(C)
+					step(C, RIGHT) = moveRight(C)
+					step(C, NEUTRAL) = C

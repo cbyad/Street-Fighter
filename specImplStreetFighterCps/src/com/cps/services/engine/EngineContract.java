@@ -3,8 +3,9 @@ package com.cps.services.engine;
 import com.cps.exception.InvariantError;
 import com.cps.exception.PostConditionError;
 import com.cps.exception.PreConditionError;
+import com.cps.services.character.Character;
 import com.cps.services.character.CharacterImpl;
-import com.cps.services.character.Player;
+import com.cps.services.player.Player;
 
 public class EngineContract extends EngineDecorator{
 
@@ -19,10 +20,10 @@ public class EngineContract extends EngineDecorator{
 		Character perso1 = getChar(1);
 		Character perso2 =getChar(2);
 		
-		if(!isGameOver() == perso1.isDead() ) 
+		if(!isGameOver() == perso1.dead() ) 
 			throw new InvariantError("isGameOver() == Character::isDead(getPlayer(1))");
 
-		if(!isGameOver() == perso2.isDead()) 
+		if(!isGameOver() == perso2.dead()) 
 			throw new InvariantError("isGameOver() == Character::isDead(getPlayer(2))");
 
 	}
@@ -68,28 +69,28 @@ public class EngineContract extends EngineDecorator{
 
 		// \post: (char1=getChar(1)):Character , char1.getPositionX()==(w/2 - s/2)
 		Character char1 = getChar(1);
-		if(!(char1.getPositionX()==(w/2 - s/2))) throw new PostConditionError("char1.getPositionX()==(w/2 - s/2)");
+		if(!(char1.positionX()==(w/2 - s/2))) throw new PostConditionError("char1.getPositionX()==(w/2 - s/2)");
 		
 		
 		// \post: (char2=getChar(2)):Character , char2.getPositionX() == (w/2 + s/2)
 		Character char2 = getChar(2);
-		if(!(char2.getPostionX()==(w/2 + s/2))) throw new PostConditionError("char2.getPositionX()==(w/2 + s/2)");
+		if(!(char2.positionX()==(w/2 + s/2))) throw new PostConditionError("char2.getPositionX()==(w/2 + s/2)");
 		
 		// \post: (char1=getChar(1)):Character , char1.getPositionY() == 0
-		Character char1 = getChar(1);
-		if(!(char1.getPositionY()==0)) throw new PostConditionError("char1.getPositionY()==0");
+		Character char11 = getChar(1);
+		if(!(char11.positionY()==0)) throw new PostConditionError("char1.getPositionY()==0");
 		
 		// \post: (char2=getChar(2)):Character , char2.getPositionY() == 0
-		Character char2 = getChar(2);
-		if(!(char2.getPositionY()==0)) throw new PostConditionError("char2.getPositionY()==0");
+		Character char21 = getChar(2);
+		if(!(char21.positionY()==0)) throw new PostConditionError("char2.getPositionY()==0");
 		
 		// \post: (char1=getChar(1)):Character , char1.isFaceRight() 
-		Character char1 = getChar(1);
-		if(!(char1.isFaceRight())) throw new PostConditionError("char1.isFaceRight()");
+		Character char111 = getChar(1);
+		if(!(char111.faceRight())) throw new PostConditionError("char1.isFaceRight()");
 		
 		// \post: (char2=getChar(2)):Character , !char1.isFaceRigth() 
-		Character char1 = getChar(1);
-		if(!(!char2.isFaceRigth())) throw new PostConditionError("!char2.isFaceRigth()");
+		Character char1111 = getChar(1);
+		if(!(!char21.faceRight())) throw new PostConditionError("!char2.isFaceRigth()");
 
 	}
 

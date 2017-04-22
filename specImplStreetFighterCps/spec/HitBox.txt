@@ -1,0 +1,43 @@
+Service: 		Hitbox
+Types: 			bool, int
+Observators: 	PositionX: [Hitbox] -> int
+				PositionY: [Hitbox] -> int
+				Length: [HitBox] -> int
+				Height: [HitBox] -> int
+				BelongsTo: [Hitbox] × int × int -> bool
+				CollidesWith: [Hitbox] × Hitbox -> bool
+				EqualsTo: [Hitbox] × Hitbox -> bool
+Constructors: 	init: int x int x int x int -> [HitBox]
+						pre init(x,y,h,l) requires h>=0 && l>=0
+Operators: 		MoveTo: [Hitbox] × int × int -> [Hitbox]
+				SetHeight: [HitBox] x int -> [HitBox]
+				SetLength: [HitBox] x int -> [HitBox]
+Observations:
+		[invariant]:
+				( PositionX(H)<PositionX(H1) ) ^ ( PositionY(H)<PositionY(H1) ) => CollidesWith(H,H1) = ( PositionX(H1)-PositionX(H) < Length(H) ) ^ ( PositionY(H1)-PositionY(H) <Height(H) )
+				( PositionX(H)<PositionX(H1) ) ^ ( PositionY(H)>PositionY(H1) ) => CollidesWith(H,H1) = ( PositionX(H1)-PositionX(H) < Length(H) ) ^ ( PositionY(H)-PositionY(H1) <Height(H1) )
+				( PositionX(H)>PositionX(H1) ) ^ ( PositionY(H)<PositionY(H1) ) => CollidesWith(H,H1) = ( PositionX(H)-PositionX(H1) < Length(H1) ) ^ ( PositionY(H1)-PositionY(H) <Height(H) )
+				( PositionX(H)>PositionX(H1) ) ^ ( PositionY(H)>PositionY(H1) ) => CollidesWith(H,H1) = ( PositionX(H)-PositionX(H1) < Length(H1) ) ^ ( PositionY(H)-PositionY(H1) <Height(H1) )
+				EqualsTo(H,H1) = (PositionX(H)=PositionX(H1)) ^ (PositionY(H)=PositionY(H1)) ^ (Height(H)=Height(H1)) ^ (Length(H)=Length(H1))
+				BelongsTo(H,x,y) = (x-PositionX(H)>0)&&(x-PositionX(H)<Length(H))&&(y-PositionY(H)>0)&&(y-PositionY(H)<Height(H))
+		[init]:
+				PositionX(init(x,y)) = x
+				PositionY(init(x,y)) = y
+				Length(init(x,y,l,h)) = l
+				Height(init(x,y,l,h)) = h
+		[MoveTo]:
+				PositionX(MoveTo(H,x,y)) = x
+				PositionY(MoveTo(H,x,y)) = y
+				forAll u,v:int × int, BelongsTo(MoveTo(H,x,y),u,v) = Belongsto(H,u-(x-PositionX(H)),v-(y-PositionY(H))
+				Length(MoveTo(H,x,y)) = Length(H)
+				Height(MoveTo(H,x,y)) = Height(H)
+		[SetHeight]:
+				Height(SetHeight(H,h)) = h
+				Length(SetHeight(H,h)) = Length(H)
+				PositionX(SetHeight(H,h)) = PositionX(H)
+				PositionY(SetHeight(H,h)) = PositionY (H)
+		[SetLength]:
+				Length(SetLength(H,l)) = l
+				Height(SetLength(H,l)) = Height(H)
+				PositionX(SetLength(H,l)) = PositionX(H)
+				PositionY(SetLength(H,l)) = PositionY(H)
