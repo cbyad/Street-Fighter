@@ -4,7 +4,7 @@ import com.cps.services.engine.Commande;
 import com.cps.services.engine.Engine;
 import com.cps.services.hitbox.Hitbox;
 
-public class CharacterImpl implements Character{
+public class CharacterImplBug implements Character{
 
 	private int x;
 	private int y;
@@ -15,7 +15,7 @@ public class CharacterImpl implements Character{
 	public boolean facing;
 	public boolean dead;
 	
-	public CharacterImpl() {
+	public CharacterImplBug() {
 	}
 
 
