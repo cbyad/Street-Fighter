@@ -19,7 +19,7 @@ public class TestHitboxView extends Rectangle implements movable{
 	}
 
 	public void keyPressedAction(KeyEvent e) {
-		//TODO
+		
 	}
 	
 

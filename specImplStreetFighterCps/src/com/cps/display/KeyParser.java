@@ -18,10 +18,10 @@ public class KeyParser  extends Thread{
 
 		while(true){
 
-
+			
 			switch (key) {
 
-			case :
+			case value:
 
 				break;
 
@@ -45,7 +45,7 @@ public class KeyParser  extends Thread{
 		}
 
 	}
-	
-	
 	*/
+	
+	
 }

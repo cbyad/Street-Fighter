@@ -24,21 +24,21 @@ public class HitboxImpl implements Hitbox{
 	}
 
 	public boolean BelongsTo (int x,int y){
-		return ((x-this.x>0)&&(x-this.x<this.l)&&(y-this.y>0)&&(y-this.y<this.h));
+		return ((x-this.x>=0)&&(x-this.x<=this.l)&&(y-this.y>=0)&&(y-this.y<=this.h));
 	}
 
 	public boolean CollidesWith (Hitbox h){
-		if ((this.PositionX()<h.PositionX())&&(this.PositionY()<h.PositionY()))
+		if ((this.PositionX()<=h.PositionX())&&(this.PositionY()<=h.PositionY()))
 			return this.BelongsTo(h.PositionX(), h.PositionY());
-		else if ((this.PositionX()<h.PositionX())&&(this.PositionY()>h.PositionY())){
-			if ((h.PositionX()<this.PositionX()+this.Length())&&(h.PositionY()+h.Height()>this.PositionY()))
+		else if ((this.PositionX()<=h.PositionX())&&(this.PositionY()>=h.PositionY())){
+			if ((h.PositionX()<=this.PositionX()+this.Length())&&(h.PositionY()+h.Height()>=this.PositionY()))
 				return true;
 		}
-		else if ((this.PositionX()>h.PositionX())&&(this.PositionY()<h.PositionY())){
-			if ((this.PositionX()<h.PositionX()+h.Length())&&(this.PositionY()+this.Height()>h.PositionY()))
+		else if ((this.PositionX()>=h.PositionX())&&(this.PositionY()<=h.PositionY())){
+			if ((this.PositionX()<=h.PositionX()+h.Length())&&(this.PositionY()+this.Height()>=h.PositionY()))
 				return true;
 		}
-		else if ((this.PositionX()>h.PositionX())&&(this.PositionY()>h.PositionY()))
+		else if ((this.PositionX()>=h.PositionX())&&(this.PositionY()>=h.PositionY()))
 			return h.BelongsTo(this.PositionX(), this.PositionY());
 
 		return false;

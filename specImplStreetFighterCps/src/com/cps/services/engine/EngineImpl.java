@@ -10,7 +10,7 @@ public class EngineImpl implements Engine{
 
 	private int height ;
 	private int width ;
-	private Character char1 ,char2 ; 
+
 	private Player p1 ,p2 ; 
 	private boolean gameOver ;
 	private int defaultSpace ; //rajoute
@@ -29,8 +29,8 @@ public class EngineImpl implements Engine{
 
 	public Character getChar(int i) {
 
-		if (i==1) return char1 ;
-		if (i==2) return char2 ;
+		if (i==1) return p1.getChar() ;
+		if (i==2) return p2.getChar() ;
 		else throw new ContractError("entier different de 1 ou 2 ");
 
 	}
@@ -55,37 +55,32 @@ public class EngineImpl implements Engine{
 		this.p2 =p2 ;
 		this.gameOver =false ;
 		//TODO initialiser les personnages sur la scene  pas sur!!!!
-		
-		Hitbox hit1 = new HitboxImpl(); 
-		Hitbox hit2 = new HitboxImpl(); 
-		char1.init(w/2-s/2, 0, false, this, hit1);
-		char2.init(w/2+s/2, 0, false, this, hit2);
 	}
 
 	public void step(Commande c1, Commande c2) {
 		//verifier que le deplacement ne depasse pas les limites du jeu
 
 		if(c1==Commande.LEFT){
-			if(char1.charBox().PositionX()>=0 ){ // deplacement a gauche possible
-				this.char1.step(c1);
+			if(p1.getChar().charBox().PositionX()>=0 ){ // deplacement a gauche possible
+				this.p1.getChar().step(c1);
 			}
 		}
 
 		if(c1==Commande.RIGHT){
-			if(char1.charBox().PositionX()<=getWidth()-char2.charBox().Length() ){ 
-				this.char1.step(c1);
+			if(p1.getChar().charBox().PositionX()<=getWidth()-p1.getChar().charBox().Length() ){ 
+				this.p1.getChar().step(c1);
 			}
 		}
 
 		if(c2==Commande.RIGHT){
-			if(char2.charBox().PositionX()<=getWidth()-char2.charBox().Length()){ //deplacement a droite possible
-				this.char2.step(c2);
+			if(p2.getChar().charBox().PositionX()<=getWidth()-p2.getChar().charBox().Length()){ //deplacement a droite possible
+				this.p2.getChar().step(c2);
 			}
 		}
 
 		if(c2==Commande.LEFT){
-			if(char2.charBox().PositionX()>=0){ 
-				this.char2.step(c2);
+			if(p2.getChar().charBox().PositionX()>=0){ 
+				this.p2.getChar().step(c2);
 			}
 		}
 	}

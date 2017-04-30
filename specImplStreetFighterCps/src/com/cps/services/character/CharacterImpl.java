@@ -65,7 +65,8 @@ public class CharacterImpl implements Character{
 		this.facing=f;
 		this.engine=e;
 		this.hitbox=h;
-
+		this.x=this.hitbox.PositionX();
+		this.y=this.hitbox.PositionY();
 	}
 
 
@@ -73,12 +74,15 @@ public class CharacterImpl implements Character{
 
 		int xpre=this.x;
 		this.x=this.x-this.speed;
+		this.charBox().MoveTo(this.positionX(), this.positionY());
 
 		boolean exist=false;
 		for (int i=0;i<2;i++){
-			if(this.engine.getPlayer(i).getChar()!=this){
-				if (this.charBox().CollidesWith(this.engine.getPlayer(i).getChar().charBox()))
+			if(this.engine.getPlayer(i+1).getChar()!=this){
+				if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
 					exist=true;
+					
+				}
 			}
 		}
 
@@ -89,18 +93,18 @@ public class CharacterImpl implements Character{
 		else {
 			this.x=xpre;
 		}
-
+		this.charBox().MoveTo(this.positionX(), this.positionY());
 	}
 
 
 	public void moveRight() {
 		int xpre=this.x;
 		this.x=this.x+this.speed;
-
+		this.charBox().MoveTo(this.positionX(), this.positionY());
 		boolean exist=false;
 		for (int i=0;i<2;i++){
-			if(this.engine.getPlayer(i).getChar()!=this){
-				if (this.charBox().CollidesWith(this.engine.getPlayer(i).getChar().charBox()))
+			if(this.engine.getChar(i+1)!=this){
+				if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox()))
 					exist=true;
 			}
 		}
@@ -112,6 +116,7 @@ public class CharacterImpl implements Character{
 		else {
 			this.x=xpre;
 		}
+		this.charBox().MoveTo(this.positionX(), this.positionY());
 	}
 
 	public void switchSide() {
