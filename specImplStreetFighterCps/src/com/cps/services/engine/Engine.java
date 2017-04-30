@@ -56,7 +56,6 @@ public interface Engine {
 	// \pre : !isGameOver()
 	// \post: char1:Character ,  (char1=getChar(1)) == char1.step(c1)  
 	// \post: char2:Character,   (char2=getChar(2)) == char2.step(c2)
-	
 	public void step(Commande c1 , Commande c2);
 	
 }

@@ -2,7 +2,7 @@ package com.cps.services.player;
 
 import com.cps.services.character.Character;
 
-public class PlayerDecorator implements Player {
+public abstract class PlayerDecorator implements Player {
 
 	private Player delegate;
 	

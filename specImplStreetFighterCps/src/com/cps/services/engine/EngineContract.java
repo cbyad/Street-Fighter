@@ -13,7 +13,6 @@ public class EngineContract extends EngineDecorator{
 	}
 
 	public void checkInvariant(){
-		
 		//\inv: (perso=getChar(i)):Character , isGameOver() == perso.isDead()  , \exist i:int \in {1,2}
 		Character perso1 = getChar(1);
 		Character perso2 =getChar(2);
@@ -23,7 +22,6 @@ public class EngineContract extends EngineDecorator{
 
 		if(!isGameOver() == perso2.dead()) 
 			throw new InvariantError("isGameOver() == Character::isDead(getPlayer(2))");
-
 	}
 
 
