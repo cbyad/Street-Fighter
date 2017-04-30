@@ -4,7 +4,6 @@ import com.cps.exception.InvariantError;
 import com.cps.exception.PostConditionError;
 import com.cps.exception.PreConditionError;
 import com.cps.services.character.Character;
-import com.cps.services.character.CharacterImpl;
 import com.cps.services.player.Player;
 
 public class EngineContract extends EngineDecorator{
@@ -14,7 +13,6 @@ public class EngineContract extends EngineDecorator{
 	}
 
 	public void checkInvariant(){
-		//pour le moment je suppose qie player et charactere designe la meme chose
 		
 		//\inv: (perso=getChar(i)):Character , isGameOver() == perso.isDead()  , \exist i:int \in {1,2}
 		Character perso1 = getChar(1);
@@ -33,6 +31,7 @@ public class EngineContract extends EngineDecorator{
 	public void init(int h, int w, int s, Player p1, Player p2) {
 
 		/*Precondition*/
+		
 		// \pre : h>0
 		if(!(h>0)) throw new PreConditionError("h>0");
 
@@ -90,14 +89,25 @@ public class EngineContract extends EngineDecorator{
 		
 		// \post: (char2=getChar(2)):Character , !char1.isFaceRigth() 
 		Character char1111 = getChar(1);
-		if(!(!char21.faceRight())) throw new PostConditionError("!char2.isFaceRigth()");
+		if(!(!char1111.faceRight())) throw new PostConditionError("!char2.isFaceRigth()");
 
 	}
 
 	@Override
 	public void step(Commande c1, Commande c2) {
-		// TODO Auto-generated method stub
-
+		
+		// \pre !isGameOver()
+		if(isGameOver())  throw new PreConditionError("!isGameOver() ");
+		checkInvariant();
+	
+		
+		//traitement 
+		super.step(c1, c2);
+		checkInvariant();
+		
+		// \post: char1:Character ,  (char1=getChar(1)) == char1.step(c1)
+		// \post: char2:Character,   (char2=getChar(2)) == char2.step(c2)
+		// TODO 
 	}
 
 }

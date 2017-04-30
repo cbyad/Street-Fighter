@@ -14,7 +14,7 @@ public class CharacterImpl implements Character{
 	private int speed;
 	public boolean facing;
 	public boolean dead;
-	
+
 	public CharacterImpl() {
 	}
 
@@ -65,15 +65,15 @@ public class CharacterImpl implements Character{
 		this.facing=f;
 		this.engine=e;
 		this.hitbox=h;
-		
+
 	}
 
 
 	public void moveLeft() {
-		
+
 		int xpre=this.x;
 		this.x=this.x-this.speed;
-		
+
 		boolean exist=false;
 		for (int i=0;i<2;i++){
 			if(this.engine.getPlayer(i).getChar()!=this){
@@ -81,7 +81,7 @@ public class CharacterImpl implements Character{
 					exist=true;
 			}
 		}
-		
+
 		if (!exist){
 			if (xpre<this.speed())
 				this.x=0;
@@ -89,14 +89,14 @@ public class CharacterImpl implements Character{
 		else {
 			this.x=xpre;
 		}
-	
+
 	}
 
 
 	public void moveRight() {
 		int xpre=this.x;
 		this.x=this.x+this.speed;
-		
+
 		boolean exist=false;
 		for (int i=0;i<2;i++){
 			if(this.engine.getPlayer(i).getChar()!=this){
@@ -104,7 +104,7 @@ public class CharacterImpl implements Character{
 					exist=true;
 			}
 		}
-		
+
 		if (!exist){
 			if (xpre>this.engine.getWidth()-this.charBox().Length()-this.speed())
 				this.x=this.engine.getWidth()-this.charBox().Length();
@@ -114,25 +114,16 @@ public class CharacterImpl implements Character{
 		}
 	}
 
-
 	public void switchSide() {
 		this.facing=!this.faceRight();
-		
 	}
-
 
 	public void step(Commande c) {
-		if (c==c.LEFT)
+		if (c==Commande.LEFT)
 			this.moveLeft();
-		
-		else if (c==c.RIGHT)
+
+		else if (c==Commande.RIGHT)
 			this.moveRight();
-		
-		
 	}
-
-
-
-
 
 }
