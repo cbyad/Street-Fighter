@@ -37,10 +37,7 @@ public interface FightChar /*refine*/ extends Character{
 	// \post 
 	public void startTech(Tech tech);
 	
-	
-	
-	
-	
 	public void block(Tech tech);
+	
 	
 }

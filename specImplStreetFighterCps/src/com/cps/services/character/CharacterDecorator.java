@@ -8,12 +8,11 @@ import com.cps.services.hitbox.Hitbox;
 
 public  abstract class CharacterDecorator implements Character{ 
 
-	private Character delegate ;
+	protected Character delegate ;
 	
 	public Character getDelegate (){
 		return delegate;
 	}
-	
 	
 	public CharacterDecorator(Character d) {
 		this.delegate=d ;
