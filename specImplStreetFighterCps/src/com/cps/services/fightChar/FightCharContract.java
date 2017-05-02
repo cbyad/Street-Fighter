@@ -140,11 +140,7 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 		
 	}
 
-	@Override
-	public void block(Tech tech) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	
 

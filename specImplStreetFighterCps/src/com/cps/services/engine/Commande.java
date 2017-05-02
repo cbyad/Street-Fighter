@@ -2,5 +2,5 @@ package com.cps.services.engine;
 
 public enum Commande {
 	
-	LEFT, RIGHT,NEUTRAL,CAUTION,DOWN ;
+	LEFT, RIGHT,NEUTRAL,BLOCK,CROUCH,JUMP,PUNCH ;
 }

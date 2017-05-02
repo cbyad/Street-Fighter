@@ -33,12 +33,17 @@ public interface FightChar /*refine*/ extends Character{
 	
 	/*Operators */
 	
-	// \pre !isTeching() ^ !isHitstunned() ^ !isBlocking() 
-	// \post techFrame() 
-	// \post  Engine::engine():: (perso=getChar(i)):Character
+	// \pre !isTeching() ^ !isHitstunned() ^ !isBlockStunned()
+	// \post isTeching()
 	public void startTech(Tech tech);
 	
-	public void block(Tech tech);
+	
+	
+	// Spec supp pour step
+	
+	// \pre: step(c) requires !isHitStunned() ^ !isBlockStunned() ^ !isTeching()
+	// \post: step(PUNCH)=starTech(punch)
+	// \post: (c=BLOCK) => isBlocking()
 	
 	
 }

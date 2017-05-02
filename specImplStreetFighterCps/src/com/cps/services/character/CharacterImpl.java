@@ -6,14 +6,14 @@ import com.cps.services.hitbox.Hitbox;
 
 public class CharacterImpl implements Character{
 
-	private int x;
-	private int y;
-	private Engine engine;
-	private Hitbox hitbox;
-	private int life;
-	private int speed;
-	public boolean facing;
-	public boolean dead;
+	protected int x;
+	protected int y;
+	protected Engine engine;
+	protected Hitbox hitbox;
+	protected int life;
+	protected int speed;
+	protected boolean facing;
+	protected boolean dead;
 	
 	public CharacterImpl() {
 	}

@@ -53,11 +53,7 @@ public class FightCharImplBug extends CharacterImpl implements FightChar{
 		
 	}
 
-	@Override
-	public void block(Tech tech) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	
 

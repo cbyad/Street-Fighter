@@ -22,7 +22,9 @@ import javafx.stage.Stage;
 
 public class MainGame extends Application {
 	private EngineImpl engine;
-
+	private int hauteur;
+	private int largeur;
+	private int espacement;
 
 	public static void main(String[] args) { 
 		launch(args); 
@@ -30,7 +32,9 @@ public class MainGame extends Application {
 
 
 	@Override public void start(Stage stage) throws Exception {
-
+		this.largeur=768;
+		this.hauteur=384;
+		this.espacement=100;
 		engine=new EngineImpl();
 		PlayerImpl player1=new PlayerImpl();
 		PlayerImpl player2=new PlayerImpl();
@@ -41,17 +45,18 @@ public class MainGame extends Application {
 
 		player1.init();
 		player2.init();
+	
 
-		engine.init(480, 600, 100, player1, player2);
+		engine.init(this.hauteur, this.largeur, this.espacement, player1, player2);
 
-		InputStream is = Files.newInputStream(Paths.get("res/arenes/2.png"));
+		InputStream is = Files.newInputStream(Paths.get("res/arenes/airport.gif"));
 		InputStream ryu = Files.newInputStream(Paths.get("res/sprites/ryu.gif"));
 		InputStream guile = Files.newInputStream(Paths.get("res/sprites/guile.gif"));
 
-		hit1.init(600/2-100/2, 480-130, 100, 40);
-		hit2.init(600/2+100/2, 480-130, 100, 40);
-		char1.init(100, 15, true, engine, hit1);
-		char2.init(100, 15, false, engine, hit2);
+		hit1.init(largeur/2-espacement/2, hauteur-130, 100, 40);
+		hit2.init(largeur/2+espacement/2, hauteur-130, 100, 40);
+		char1.init(100, 50, true, engine, hit1);
+		char2.init(100, 50, false, engine, hit2);
 		player1.setChar(char1);
 		player2.setChar(char2);
 
@@ -68,13 +73,13 @@ public class MainGame extends Application {
 
 		group.getChildren().addAll(arene,rec,rec2);
 
-		Scene scene = new Scene(group, 480,600);
+		Scene scene = new Scene(group, hauteur,largeur);
 		moveRecOnKeyPress(scene, rec, rec2);
 
 		stage.setScene(scene);
-		stage.setTitle("Street Fighter ");
-		stage.setWidth(600);
-		stage.setHeight(480);
+		stage.setTitle("Destroy the bastards");
+		stage.setWidth(largeur);
+		stage.setHeight(hauteur);
 		stage.setResizable(false);
 		stage.show();
 	}

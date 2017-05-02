@@ -1,6 +1,7 @@
 package com.cps.services.fightChar;
 
 import com.cps.services.character.CharacterImpl;
+import com.cps.services.engine.Commande;
 import com.cps.services.tech.Tech;
 
 public class FightCharImpl extends CharacterImpl implements FightChar{
@@ -52,17 +53,6 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 
 
 
-
-
-
-	@Override
-	public void block(Tech tech) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
 	@Override
 	public boolean isBlockstunned() {
 		// TODO Auto-generated method stub
@@ -70,4 +60,8 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 	}
 
 
+	@Override
+	public void step(Commande c){
+		
+	}
 }

@@ -58,11 +58,7 @@ public abstract class FightCharDecorator extends CharacterDecorator implements F
 		
 	}
 
-	@Override
-	public void block(Tech tech) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 
 }
