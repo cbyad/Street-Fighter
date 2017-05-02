@@ -7,6 +7,7 @@ import com.cps.services.hitbox.Hitbox;
 import com.cps.services.tech.Tech;
 
 public class FightCharImpl extends CharacterImpl implements FightChar{
+
 	private boolean isBlocking ;
 	public boolean isBlockstunned ;
 	public boolean isHitstunned;
@@ -14,73 +15,71 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 	public Tech tech; 
 	public boolean techFrame;
 	public boolean techHasAlreadyHit; 
-	
-	
+
+	public FightCharImpl() {
+	}
+
 	@Override
 	public boolean isBlocking() {
-		
+		return isBlocking;
+	}
+
+	@Override
+	public boolean isBlockstunned() {
 		return false;
 	}
 
-
-	
 	@Override
 	public boolean isHitstunned() {
-		// TODO Auto-generated method stub
-		return false;
+		return isHitstunned;
 	}
-	
+
 	@Override
 	public boolean isTeching() {
-		// TODO Auto-generated method stub
-		return false;
+		return isTeching;
 	}
 
 	@Override
 	public Tech tech() {
-		// TODO Auto-generated method stub
-		return null;
+		return tech;
 	}
 
 	@Override
 	public boolean techFrame() {
-		// TODO Auto-generated method stub
-		return false;
+		return techFrame;
 	}
 
 	@Override
 	public boolean techHasAlreadyHit() {
-		// TODO Auto-generated method stub
-		return false;
+		return techHasAlreadyHit;
 	}
 
 	@Override
 	public void startTech(Tech tech) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 
-
-	@Override
-	public boolean isBlockstunned() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 	@Override
 	public void step(Commande c){
-			//TODO
-		
-	}
+		//TODO
 
+	}
 
 
 	@Override
 	public void init(int l, int s, boolean f, Engine e, Hitbox h, Tech tech) {
-		// TODO Auto-generated method stub
-		
+		super.init(l, s, f, e, h);
+		this.tech=tech;
+		isBlocking=false ;
+		isBlockstunned=false ;
+		isHitstunned=false;
+		isTeching=false;
+		techFrame=false;
+		techHasAlreadyHit=false; 
 	}
 }

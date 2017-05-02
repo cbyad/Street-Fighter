@@ -5,12 +5,10 @@ import com.cps.services.tech.Tech;
 
 public abstract class FightCharDecorator extends CharacterDecorator implements FightChar{
 	
-	
 	public FightCharDecorator(FightChar delegate) {
 		super(delegate);
 	}
 
-	
 	public FightChar getDelegate(){
 		return (FightChar)this.getDelegate();
 	}

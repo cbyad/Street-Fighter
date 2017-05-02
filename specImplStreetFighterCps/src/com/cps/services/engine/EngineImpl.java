@@ -59,7 +59,6 @@ public class EngineImpl implements Engine{
 		this.p1 =p1 ;
 		this.p2 =p2 ;
 		this.gameOver =false ;
-		//TODO initialiser les personnages sur la scene  pas sur!!!!
 	}
 	
 	@Override

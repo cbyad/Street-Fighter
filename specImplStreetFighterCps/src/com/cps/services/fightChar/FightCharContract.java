@@ -33,11 +33,8 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 			throw new InvariantError("isTeching()==!isHitstunned()");
 	}
 
-
-
 	@Override
 	public int positionX() {
-
 		return getDelegate().positionX();
 	}
 
@@ -77,14 +74,8 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 	}
 
 	@Override
-	public void init(int l, int s, boolean f, Engine e, Hitbox h) {
-		getDelegate().init(l, s, f, e, h);
-	}
-
-	@Override
 	public void moveLeft() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -169,7 +160,6 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 		//Traitement 
 		startTech(tech);
 
-		//capture
 		checkInvariant();
 
 		// \post isTeching()
@@ -178,6 +168,11 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 		
 		checkInvariant();
 
+	}
+
+	@Override
+	public void init(int l, int s, boolean f, Engine e, Hitbox h, Tech tech) {
+		getDelegate().init(l, s, f, e, h, tech);
 	}
 
 

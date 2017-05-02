@@ -55,8 +55,8 @@ public class MainGame extends Application {
 
 		hit1.init(largeur/2-espacement/2, hauteur-130, 100, 40);
 		hit2.init(largeur/2+espacement/2, hauteur-130, 100, 40);
-		char1.init(100, 15, true, engine, hit1);
-		char2.init(100, 15, false, engine, hit2);
+		char1.init(100, 10, true, engine, hit1);
+		char2.init(100, 10, false, engine, hit2);
 		player1.setChar(char1);
 		player2.setChar(char2);
 
@@ -104,6 +104,11 @@ public class MainGame extends Application {
 			} 
 			break ;
 
+			case UP: {
+				engine.step(Commande.JUMP, Commande.NEUTRAL);
+			}
+			break;
+			
 			case Q: {
 				engine.step(Commande.NEUTRAL, Commande.LEFT);
 			}
@@ -118,17 +123,32 @@ public class MainGame extends Application {
 				engine.step(Commande.NEUTRAL, Commande.CROUCH);
 			} 
 			break ;
-
+			
+			case Z: {
+				engine.step(Commande.NEUTRAL, Commande.JUMP);
+			}
+			break;
+			
 			default:
 				break;
 			}
+			
+			System.out.println(engine.getChar(1).faceRight()+" "+engine.getChar(2).faceRight());
+			
 
-			rec.setX(engine.getChar(1).positionX());
-			rec.setY(engine.getChar(1).positionY());
-			rec2.setX(engine.getChar(2).positionX());
-			rec2.setY(engine.getChar(2).positionY());
-			//System.out.println("x: "+engine.getChar(1).positionX()+" y: "+engine.getChar(1).positionY());
-		});
+				rec.setX(engine.getChar(1).positionX());
+				rec.setY(engine.getChar(1).positionY());
+				rec.setHeight(engine.getChar(1).charBox().Height());
+				rec.setWidth(engine.getChar(1).charBox().Length());
 
+			
+
+				rec2.setX(engine.getChar(2).positionX());
+				rec2.setY(engine.getChar(2).positionY());
+				rec2.setHeight(engine.getChar(2).charBox().Height());
+				rec2.setWidth(engine.getChar(2).charBox().Length());
+	
+		
+	});
 	}
 }

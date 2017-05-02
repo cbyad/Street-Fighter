@@ -14,6 +14,13 @@ public class CharacterImpl implements Character{
 	protected int speed;
 	protected boolean facing;
 	protected boolean dead;
+	protected boolean jumping;
+	protected boolean crouching;
+	protected int vspeed;
+	protected int hStand;
+	protected int lStand;
+	protected int hCrouch;
+	protected int lCrouch;
 	
 	public CharacterImpl() {
 	}
@@ -67,6 +74,13 @@ public class CharacterImpl implements Character{
 		this.hitbox=h;
 		this.x=this.hitbox.PositionX();
 		this.y=this.hitbox.PositionY();
+		this.jumping=false;
+		this.crouching=false;
+		this.vspeed=0;
+		this.hStand=this.hitbox.Height();
+		this.lStand=this.hitbox.Length();
+		this.hCrouch=(2*hStand)/3;
+		this.lCrouch=(2*lStand)/3;
 	}
 
 	@Override
@@ -122,14 +136,82 @@ public class CharacterImpl implements Character{
 	public void switchSide() {
 		this.facing=!this.faceRight();
 	}
+
+	public void crouch(){
+	
+		this.y= this.y-hCrouch+hStand;
+		this.hitbox.MoveTo(this.x, this.y);
+		this.hitbox.SetHeight(hCrouch);
+	
+		
+		this.crouching=true;
+	}
+	
+	public void jump(){
+		this.jumping=true;
+		this.vspeed=this.speed*2;
+	}
 	
 	@Override
 	public void step(Commande c) {
-		if (c==Commande.LEFT)
-			this.moveLeft();
-
-		else if (c==Commande.RIGHT)
-			this.moveRight();
+		if (this.crouching){
+			this.crouching=false;
+			this.y= this.y+hCrouch-hStand;
+			this.hitbox.MoveTo(this.x, this.y);
+			this.hitbox.SetHeight(hStand);
+		}
+		
+		if (this.jumping){
+			if (this.positionY()<this.engine.getHeight()-this.charBox().Height()){
+				this.vspeed-=this.speed/2;
+				this.y-=this.vspeed;
+			}
+			if (this.positionY()>=this.engine.getHeight()-this.charBox().Height()){
+				this.vspeed=0;
+				this.y=this.engine.getHeight()-this.charBox().Height();
+				this.jumping=false;
+			}
+			
+		}
+		
+		else {
+				
+			
+			if (c==Commande.NEUTRAL){
+				
+			}
+			else{
+				for (int i=0;i<2;i++){
+					if(this.engine.getPlayer(i+1).getChar()!=this){
+						if(this.faceRight()){
+							if (this.positionX()>this.engine.getPlayer(i+1).getChar().positionX())
+								this.switchSide();
+						}
+						else {
+							if (this.positionX()<this.engine.getPlayer(i+1).getChar().positionX())
+								this.switchSide();
+						}
+					}
+				}
+				if (c==Commande.LEFT){
+	
+					this.moveLeft();
+				}
+	
+				else if (c==Commande.RIGHT){
+				
+					this.moveRight();
+				}
+				
+				else if (c==Commande.CROUCH)
+					this.crouch();
+				
+				else if (c==Commande.JUMP){
+					
+					this.jump();
+				}
+			}
+		}
 	}
 
 

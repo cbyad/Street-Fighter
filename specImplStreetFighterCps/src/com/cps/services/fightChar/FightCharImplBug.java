@@ -1,6 +1,8 @@
 package com.cps.services.fightChar;
 
 import com.cps.services.character.CharacterImpl;
+import com.cps.services.engine.Engine;
+import com.cps.services.hitbox.Hitbox;
 import com.cps.services.tech.Tech;
 
 public class FightCharImplBug extends CharacterImpl implements FightChar{
@@ -49,6 +51,12 @@ public class FightCharImplBug extends CharacterImpl implements FightChar{
 
 	@Override
 	public void startTech(Tech tech) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init(int l, int s, boolean f, Engine e, Hitbox h, Tech tech) {
 		// TODO Auto-generated method stub
 		
 	}
