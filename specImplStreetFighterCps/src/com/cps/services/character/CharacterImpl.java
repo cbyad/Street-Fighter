@@ -5,7 +5,7 @@ import com.cps.services.engine.Engine;
 import com.cps.services.hitbox.Hitbox;
 
 public class CharacterImpl implements Character{
-
+	protected int grav;
 	protected int x;
 	protected int y;
 	protected Engine engine;
@@ -81,6 +81,7 @@ public class CharacterImpl implements Character{
 		this.lStand=this.hitbox.Length();
 		this.hCrouch=(2*hStand)/3;
 		this.lCrouch=(2*lStand)/3;
+		this.grav=5;
 	}
 
 	@Override
@@ -149,11 +150,23 @@ public class CharacterImpl implements Character{
 	
 	public void jump(){
 		this.jumping=true;
-		this.vspeed=this.speed*2;
+		this.vspeed=this.speed*5;
 	}
 	
 	@Override
 	public void step(Commande c) {
+		
+		for (int i=0;i<2;i++){
+			if(this.engine.getPlayer(i+1).getChar()!=this){
+				if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
+					if (this.x<this.engine.getPlayer(i+1).getChar().positionX())
+						this.x-=this.speed;
+					else
+						this.x+=this.speed;
+				}
+			}
+		}
+		
 		if (this.crouching){
 			this.crouching=false;
 			this.y= this.y+hCrouch-hStand;
@@ -162,55 +175,78 @@ public class CharacterImpl implements Character{
 		}
 		
 		if (this.jumping){
-			if (this.positionY()<this.engine.getHeight()-this.charBox().Height()){
-				this.vspeed-=this.speed/2;
+			if (this.positionY()<this.engine.getHeight()-hStand){
+				this.vspeed-=this.grav;
 				this.y-=this.vspeed;
+	
+				for (int i=0;i<2;i++){
+					if(this.engine.getPlayer(i+1).getChar()!=this){
+						if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
+							System.out.println("COLLIDES");
+							if (this.x<this.engine.getPlayer(i+1).getChar().positionX()){
+								this.x-=this.speed;
+							
+							}
+							else{
+								this.x+=this.speed;
+							}
+							
+						}
+					}
+				}
+
+			
+				this.charBox().MoveTo(this.positionX(), this.positionY());
+				
+				
 			}
-			if (this.positionY()>=this.engine.getHeight()-this.charBox().Height()){
+			if (this.positionY()>=this.engine.getHeight()-hStand){
 				this.vspeed=0;
-				this.y=this.engine.getHeight()-this.charBox().Height();
+				this.y=this.engine.getHeight()-hStand-1;
 				this.jumping=false;
 			}
 			
 		}
 		
-		else {
+
 				
 			
-			if (c==Commande.NEUTRAL){
+		if (c==Commande.NEUTRAL){
 				
-			}
-			else{
-				for (int i=0;i<2;i++){
-					if(this.engine.getPlayer(i+1).getChar()!=this){
-						if(this.faceRight()){
-							if (this.positionX()>this.engine.getPlayer(i+1).getChar().positionX())
-								this.switchSide();
-						}
-						else {
-							if (this.positionX()<this.engine.getPlayer(i+1).getChar().positionX())
-								this.switchSide();
-						}
+		}
+		else{
+			for (int i=0;i<2;i++){
+				if(this.engine.getPlayer(i+1).getChar()!=this){
+					if(this.faceRight()){
+						if (this.positionX()>this.engine.getPlayer(i+1).getChar().positionX())
+							this.switchSide();
+					}
+					else {
+						if (this.positionX()<this.engine.getPlayer(i+1).getChar().positionX())
+							this.switchSide();
 					}
 				}
-				if (c==Commande.LEFT){
-	
-					this.moveLeft();
-				}
-	
-				else if (c==Commande.RIGHT){
-				
-					this.moveRight();
-				}
-				
-				else if (c==Commande.CROUCH)
-					this.crouch();
-				
-				else if (c==Commande.JUMP){
-					
-					this.jump();
-				}
 			}
+			if (c==Commande.LEFT){
+	
+				this.moveLeft();
+			}
+	
+			else if (c==Commande.RIGHT){
+				
+				this.moveRight();
+			}
+				
+			else if (c==Commande.CROUCH){
+				if (!jumping)
+					this.crouch();
+			}
+				
+			else if (c==Commande.JUMP){
+				if (!jumping)	
+					this.jump();
+			}
+			
 		}
 	}
 

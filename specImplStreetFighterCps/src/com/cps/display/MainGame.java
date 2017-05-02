@@ -25,6 +25,7 @@ public class MainGame extends Application {
 	private int hauteur;
 	private int largeur;
 	private int espacement;
+	private realTimeDealer rt;
 
 	public static void main(String[] args) { 
 		launch(args); 
@@ -55,8 +56,8 @@ public class MainGame extends Application {
 
 		hit1.init(largeur/2-espacement/2, hauteur-130, 100, 40);
 		hit2.init(largeur/2+espacement/2, hauteur-130, 100, 40);
-		char1.init(100, 10, true, engine, hit1);
-		char2.init(100, 10, false, engine, hit2);
+		char1.init(100, 8, true, engine, hit1);
+		char2.init(100, 8, false, engine, hit2);
 		player1.setChar(char1);
 		player2.setChar(char2);
 
@@ -74,6 +75,10 @@ public class MainGame extends Application {
 		group.getChildren().addAll(arene,rec,rec2);
 
 		Scene scene = new Scene(group, hauteur,largeur);
+		
+		this.rt=new realTimeDealer(rec, rec2, scene, engine);
+		rt.start();
+		
 		moveRecOnKeyPress(scene, rec, rec2);
 
 		stage.setScene(scene);
@@ -90,42 +95,42 @@ public class MainGame extends Application {
 
 			switch (event.getCode()) {
 			case RIGHT: {
-				engine.step(Commande.RIGHT, Commande.NEUTRAL);
+				rt.p1right=true;
 			}
 			break ;	
 
 			case LEFT: {
-				engine.step(Commande.LEFT, Commande.NEUTRAL);
+				rt.p1left=true;
 			} 
 			break ;
 			
 			case DOWN: {
-				engine.step(Commande.CROUCH, Commande.NEUTRAL);
+				rt.p1crouch=true;
 			} 
 			break ;
 
 			case UP: {
-				engine.step(Commande.JUMP, Commande.NEUTRAL);
+				rt.p1jump=true;
 			}
 			break;
 			
 			case Q: {
-				engine.step(Commande.NEUTRAL, Commande.LEFT);
+				rt.p2left=true;
 			}
 			break ;	
 
 			case D: {
-				engine.step(Commande.NEUTRAL, Commande.RIGHT);
+				rt.p2right=true;
 			} 
 			break ;
 			
 			case S: {
-				engine.step(Commande.NEUTRAL, Commande.CROUCH);
+				rt.p2crouch=true;
 			} 
 			break ;
 			
 			case Z: {
-				engine.step(Commande.NEUTRAL, Commande.JUMP);
+				rt.p2jump=true;
 			}
 			break;
 			
@@ -133,22 +138,63 @@ public class MainGame extends Application {
 				break;
 			}
 			
-			System.out.println(engine.getChar(1).faceRight()+" "+engine.getChar(2).faceRight());
 			
-
-				rec.setX(engine.getChar(1).positionX());
-				rec.setY(engine.getChar(1).positionY());
-				rec.setHeight(engine.getChar(1).charBox().Height());
-				rec.setWidth(engine.getChar(1).charBox().Length());
-
-			
-
-				rec2.setX(engine.getChar(2).positionX());
-				rec2.setY(engine.getChar(2).positionY());
-				rec2.setHeight(engine.getChar(2).charBox().Height());
-				rec2.setWidth(engine.getChar(2).charBox().Length());
+				
 	
 		
 	});
+		scene.setOnKeyReleased(event->{
+
+			switch (event.getCode()) {
+			case RIGHT: {
+				rt.p1right=false;
+			}
+			break ;	
+
+			case LEFT: {
+				rt.p1left=false;
+			} 
+			break ;
+			
+			case DOWN: {
+				rt.p1crouch=false;
+			} 
+			break ;
+
+			case UP: {
+				rt.p1jump=false;
+			}
+			break;
+			
+			case Q: {
+				rt.p2left=false;
+			}
+			break ;	
+
+			case D: {
+				rt.p2right=false;
+			} 
+			break ;
+			
+			case S: {
+				rt.p2crouch=false;
+			} 
+			break ;
+			
+			case Z: {
+				rt.p2jump=false;
+			}
+			break;
+			
+			default:
+				break;
+			}
+			
+			
+				
+	
+		
+	});
+		
 	}
 }
