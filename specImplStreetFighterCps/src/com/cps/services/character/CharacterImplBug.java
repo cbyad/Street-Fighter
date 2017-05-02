@@ -18,47 +18,47 @@ public class CharacterImplBug implements Character{
 	public CharacterImplBug() {
 	}
 
-
+	@Override
 	public int positionX() {
 		return this.speed;
 	}
 
-
+	@Override
 	public int positionY() {
 		return this.x;
 	}
 
-
+	@Override
 	public Engine engine() {
 		return this.engine;
 	}
 
-
+	@Override
 	public Hitbox charBox() {
 		return this.hitbox;
 	}
 
-
+	@Override
 	public int life() {
 		return this.speed;
 	}
 
-
+	@Override
 	public int speed() {
 		return this.life;
 	}
 
-
+	@Override
 	public boolean faceRight() {
 		return this.dead;
 	}
 
-
+	@Override
 	public boolean dead() {
 		return this.facing;
 	}
 
-
+	@Override
 	public void init(int l, int s, boolean f, Engine e, Hitbox h) {
 		this.life=l;
 		this.speed=s;
@@ -68,7 +68,7 @@ public class CharacterImplBug implements Character{
 		
 	}
 
-
+	@Override
 	public void moveLeft() {
 		
 		int xpre=this.x;
@@ -92,7 +92,7 @@ public class CharacterImplBug implements Character{
 	
 	}
 
-
+	@Override
 	public void moveRight() {
 		int xpre=this.x;
 		this.x=this.x+this.speed;
@@ -114,25 +114,19 @@ public class CharacterImplBug implements Character{
 		}
 	}
 
-
+	@Override
 	public void switchSide() {
 		this.facing=!this.faceRight();
 		
 	}
 
-
+	@Override
 	public void step(Commande c) {
-		if (c==c.LEFT)
+		if (c==Commande.LEFT)
 			this.moveLeft();
 		
-		else if (c==c.RIGHT)
+		else if (c==Commande.RIGHT)
 			this.moveRight();
-		
-		
 	}
-
-
-
-
 
 }

@@ -5,12 +5,12 @@ import com.cps.services.hitbox.Hitbox;
 public interface Tech {
 
 	/*Observators*/
-	public int getDamage();
-	public int getHstun();
-	public int getBstun();
-	public int getSframe();
-	public int getHframe();
-	public int getRframe();
+	public int damage();
+	public int hstun();
+	public int bstun();
+	public int sframe();
+	public int hframe();
+	public int rframe();
 	public Hitbox getHitBox(int x ,int y,int h,int l);
 	
 	/*Constructors*/

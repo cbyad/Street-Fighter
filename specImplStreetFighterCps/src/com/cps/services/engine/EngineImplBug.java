@@ -16,15 +16,18 @@ public class EngineImplBug implements Engine{
 
 	public  EngineImplBug() {
 	}
-
+	
+	@Override
 	public int getHeight() {
 		return height;
 	}
-
+	
+	@Override
 	public int getWidth() {
 		return width;
 	}
 
+	@Override
 	public Character getChar(int i) {
 
 		if (i==1) return char1 ;
@@ -33,17 +36,19 @@ public class EngineImplBug implements Engine{
 
 	}
 
+	@Override
 	public Player getPlayer(int i) {
 		if (i==1) return p1 ;
 		if (i==2) return p2 ;
 		else throw new ContractError("entier different de 1 ou 2 ");
 	}
 
+	@Override
 	public boolean isGameOver() {
 		return gameOver ;
 	}
 
-
+	@Override
 	public void init(int h, int w, int s, Player p1, Player p2) {
 
 		this.height= h;
@@ -56,6 +61,7 @@ public class EngineImplBug implements Engine{
 
 	}
 
+	@Override
 	public void step(Commande c1, Commande c2) {
 
 

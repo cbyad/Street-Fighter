@@ -230,4 +230,5 @@ public class CharacterContract extends CharacterDecorator{
 		}
 
 
+
 }

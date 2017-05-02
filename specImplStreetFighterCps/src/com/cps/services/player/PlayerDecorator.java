@@ -10,14 +10,17 @@ public abstract class PlayerDecorator implements Player {
 		this.delegate=d;
 	}
 	
+	@Override
 	public Character getChar() {
 		return delegate.getChar();
 	}
 
+	@Override
 	public void init() {
 		delegate.init();
 	}
 
+	@Override
 	public void setChar(Character c) {
 		delegate.setChar(c);
 	}

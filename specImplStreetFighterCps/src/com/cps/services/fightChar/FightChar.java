@@ -8,7 +8,7 @@ public interface FightChar /*refine*/ extends Character{
 	/*Observators*/
 	
 	public boolean isBlocking() ;
-	public boolean isBlockstuned() ;
+	public boolean isBlockstunned() ;
 	public boolean isHitstunned();
 	public boolean isTeching();
 	
@@ -23,9 +23,9 @@ public interface FightChar /*refine*/ extends Character{
 	
 	/*Invariants*/
 	
-	// \inv isBlocking()==isBlockstunned() 
+	// \inv isBlocking()== !isBlockstunned() 
 	// \inv isBlocking()==!isTeching()
-	// \inv isTeching()==isHitstunned() 
+	// \inv isTeching()==!isHitstunned() 
 	
 	
 	
@@ -33,8 +33,9 @@ public interface FightChar /*refine*/ extends Character{
 	
 	/*Operators */
 	
-	// \pre !isTeching() ^ !isHitstunned()
-	// \post 
+	// \pre !isTeching() ^ !isHitstunned() ^ !isBlocking() 
+	// \post techFrame() 
+	// \post  Engine::engine():: (perso=getChar(i)):Character
 	public void startTech(Tech tech);
 	
 	public void block(Tech tech);

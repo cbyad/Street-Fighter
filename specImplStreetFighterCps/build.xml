@@ -26,7 +26,7 @@
 	        </java>
     </target>
     
-    <target name="test" depends="compile" description="run examples">
+    <target name="test" depends="compile" description="run MBT test">
         <java classname="com.cps.test.MBT"
             classpath="${build}">
         </java>       

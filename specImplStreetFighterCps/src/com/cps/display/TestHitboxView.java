@@ -6,7 +6,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-public class TestHitboxView extends Rectangle implements movable{
+public class TestHitboxView extends Rectangle {
 	
 	private int x ,y ,h ,w ;
 	
@@ -18,9 +18,7 @@ public class TestHitboxView extends Rectangle implements movable{
 		this.x = x;this.y=y ;this.w =w ;this.h=h;
 	}
 
-	public void keyPressedAction(KeyEvent e) {
-		
-	}
+
 	
 
 }

@@ -30,7 +30,7 @@ public class MainGame extends Application {
 
 
 	@Override public void start(Stage stage) throws Exception {
-		
+
 		engine=new EngineImpl();
 		PlayerImpl player1=new PlayerImpl();
 		PlayerImpl player2=new PlayerImpl();
@@ -38,17 +38,16 @@ public class MainGame extends Application {
 		CharacterImpl char2=new CharacterImpl();
 		HitboxImpl hit1 = new HitboxImpl(); 
 		HitboxImpl hit2 = new HitboxImpl();
-		
+
 		player1.init();
 		player2.init();
-		
+
 		engine.init(480, 600, 100, player1, player2);
-		
-		
+
 		InputStream is = Files.newInputStream(Paths.get("res/arenes/2.png"));
 		InputStream ryu = Files.newInputStream(Paths.get("res/sprites/ryu.gif"));
 		InputStream guile = Files.newInputStream(Paths.get("res/sprites/guile.gif"));
- 
+
 		hit1.init(600/2-100/2, 480-130, 100, 40);
 		hit2.init(600/2+100/2, 480-130, 100, 40);
 		char1.init(100, 15, true, engine, hit1);
@@ -61,8 +60,6 @@ public class MainGame extends Application {
 		Image imgGuile = new Image(guile);
 		guile.close(); ryu.close(); is.close();
 		ImageView arene =  new ImageView(img);
-
-		
 
 		Group group = new Group();
 
@@ -83,42 +80,50 @@ public class MainGame extends Application {
 	}
 
 	private void moveRecOnKeyPress(Scene scene, TestHitboxView rec, TestHitboxView rec2) {
-		
+
 		scene.setOnKeyPressed(event->{
-			
+
 			switch (event.getCode()) {
 			case RIGHT: {
-					engine.step(Commande.RIGHT, Commande.NEUTRAL);
+				engine.step(Commande.RIGHT, Commande.NEUTRAL);
 			}
 			break ;	
-			
+
 			case LEFT: {
-					engine.step(Commande.LEFT, Commande.NEUTRAL);
+				engine.step(Commande.LEFT, Commande.NEUTRAL);
 			} 
 			break ;
 			
+			case DOWN: {
+				engine.step(Commande.DOWN, Commande.NEUTRAL);
+			} 
+			break ;
+
 			case Q: {
-					engine.step(Commande.NEUTRAL, Commande.LEFT);
+				engine.step(Commande.NEUTRAL, Commande.LEFT);
 			}
 			break ;	
-		
+
 			case D: {
-					engine.step(Commande.NEUTRAL, Commande.RIGHT);
+				engine.step(Commande.NEUTRAL, Commande.RIGHT);
 			} 
 			break ;
 			
+			case X: {
+				engine.step(Commande.NEUTRAL, Commande.DOWN);
+			} 
+			break ;
+
 			default:
 				break;
 			}
-			
+
 			rec.setX(engine.getChar(1).positionX());
 			rec.setY(engine.getChar(1).positionY());
 			rec2.setX(engine.getChar(2).positionX());
 			rec2.setY(engine.getChar(2).positionY());
-	//	System.out.println("x: "+engine.getChar(1).positionX()+" y: "+engine.getChar(1).positionY());
+			//System.out.println("x: "+engine.getChar(1).positionX()+" y: "+engine.getChar(1).positionY());
 		});
-		
-		
 
 	}
 }

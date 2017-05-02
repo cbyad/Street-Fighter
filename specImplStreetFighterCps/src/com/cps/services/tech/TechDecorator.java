@@ -10,38 +10,38 @@ public abstract class TechDecorator implements Tech{
 	}
 	
 	@Override
-	public int getDamage() {
-		return delegate.getDamage();
+	public int damage() {
+		return delegate.damage();
 	}
 
 	@Override
-	public int getHstun() {
-		return delegate.getBstun();
+	public int hstun() {
+		return delegate.hstun();
 	}
 
 	@Override
-	public int getBstun() {
-		return delegate.getBstun();
+	public int bstun() {
+		return delegate.bstun();
 	}
 
 	@Override
-	public int getSframe() {
-		return delegate.getSframe();
+	public int sframe() {
+		return delegate.sframe();
+	}
+	
+	@Override
+	public int hframe() {
+		return delegate.hframe();
 	}
 
 	@Override
-	public int getHframe() {
-		return delegate.getHframe();
+	public int rframe() {
+		return delegate.rframe();
 	}
-
+	
 	@Override
-	public int getRframe() {
-		return delegate.getRframe();
-	}
-
-	@Override
-	public Hitbox getHitBox(int x, int y) {
-		return delegate.getHitBox(x, y);
+	public Hitbox getHitBox(int x ,int y,int h,int l){
+		return delegate.getHitBox(x, y, h, l);
 	}
 
 	@Override

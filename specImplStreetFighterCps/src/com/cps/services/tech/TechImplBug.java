@@ -5,45 +5,50 @@ import com.cps.services.hitbox.Hitbox;
 public class TechImplBug implements Tech{
 
 	@Override
-	public int getDamage() {
+	public int damage() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getHstun() {
+	public int hstun() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getBstun() {
+	public int bstun() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getSframe() {
+	public int sframe() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getHframe() {
+	public int hframe() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getRframe() {
+	public int rframe() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public Hitbox getHitBox(int x, int y) {
+	public Hitbox getHitBox(int x, int y, int h, int l) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int rframe) {
+		// TODO Auto-generated method stub
+		
+	}
 }

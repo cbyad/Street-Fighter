@@ -14,51 +14,51 @@ public class CharacterImpl implements Character{
 	private int speed;
 	public boolean facing;
 	public boolean dead;
-
+	
 	public CharacterImpl() {
 	}
 
-
+	@Override
 	public int positionX() {
 		return this.x;
 	}
 
-
+	@Override
 	public int positionY() {
 		return this.y;
 	}
 
-
+	@Override
 	public Engine engine() {
 		return this.engine;
 	}
 
-
+	@Override
 	public Hitbox charBox() {
 		return this.hitbox;
 	}
 
-
+	@Override
 	public int life() {
 		return this.life;
 	}
 
-
+	@Override
 	public int speed() {
 		return this.speed;
 	}
 
-
+	@Override
 	public boolean faceRight() {
 		return this.facing;
 	}
 
-
+	@Override
 	public boolean dead() {
 		return this.dead;
 	}
 
-
+	@Override
 	public void init(int l, int s, boolean f, Engine e, Hitbox h) {
 		this.life=l;
 		this.speed=s;
@@ -69,7 +69,7 @@ public class CharacterImpl implements Character{
 		this.y=this.hitbox.PositionY();
 	}
 
-
+	@Override
 	public void moveLeft() {
 
 		int xpre=this.x;
@@ -96,7 +96,7 @@ public class CharacterImpl implements Character{
 		this.charBox().MoveTo(this.positionX(), this.positionY());
 	}
 
-
+	@Override
 	public void moveRight() {
 		int xpre=this.x;
 		this.x=this.x+this.speed;
@@ -122,7 +122,8 @@ public class CharacterImpl implements Character{
 	public void switchSide() {
 		this.facing=!this.faceRight();
 	}
-
+	
+	@Override
 	public void step(Commande c) {
 		if (c==Commande.LEFT)
 			this.moveLeft();
@@ -130,5 +131,6 @@ public class CharacterImpl implements Character{
 		else if (c==Commande.RIGHT)
 			this.moveRight();
 	}
+
 
 }

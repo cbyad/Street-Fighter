@@ -7,9 +7,6 @@ public class KeyParser  extends Thread{
 
 	public KeyParser(Character c) {
 		this.myChar =c ;
-
-
-
 		this.start();
 	}
 
@@ -41,11 +38,8 @@ public class KeyParser  extends Thread{
 			default:
 				break;
 			}
-
 		}
 
 	}
 	*/
-	
-	
 }

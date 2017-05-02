@@ -66,5 +66,7 @@ public interface Character {
 	// \post: step(RIGHT) = moveRight()
 	// \post: step(NEUTRAL) = null
 	public void step (Commande c);
+	
+
 
 }

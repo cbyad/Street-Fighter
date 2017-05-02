@@ -8,15 +8,18 @@ public class PlayerImplBug implements Player {
 	
 	public PlayerImplBug(){
 	}
-
+	
+	@Override
 	public Character getChar() {
 		return this.charac;
 	}
 
+	@Override
 	public void init() {
 		this.charac=null;		
 	}
 
+	@Override
 	public void setChar(Character c) {
 		this.charac=null;
 	}
