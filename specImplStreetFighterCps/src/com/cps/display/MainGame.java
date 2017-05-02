@@ -55,8 +55,8 @@ public class MainGame extends Application {
 
 		hit1.init(largeur/2-espacement/2, hauteur-130, 100, 40);
 		hit2.init(largeur/2+espacement/2, hauteur-130, 100, 40);
-		char1.init(100, 50, true, engine, hit1);
-		char2.init(100, 50, false, engine, hit2);
+		char1.init(100, 15, true, engine, hit1);
+		char2.init(100, 15, false, engine, hit2);
 		player1.setChar(char1);
 		player2.setChar(char2);
 
@@ -100,7 +100,7 @@ public class MainGame extends Application {
 			break ;
 			
 			case DOWN: {
-				engine.step(Commande.DOWN, Commande.NEUTRAL);
+				engine.step(Commande.CROUCH, Commande.NEUTRAL);
 			} 
 			break ;
 
@@ -114,8 +114,8 @@ public class MainGame extends Application {
 			} 
 			break ;
 			
-			case X: {
-				engine.step(Commande.NEUTRAL, Commande.DOWN);
+			case S: {
+				engine.step(Commande.NEUTRAL, Commande.CROUCH);
 			} 
 			break ;
 

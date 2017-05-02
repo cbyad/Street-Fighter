@@ -10,55 +10,50 @@ public abstract class FightCharDecorator extends CharacterDecorator implements F
 		super(delegate);
 	}
 
+	
+	public FightChar getDelegate(){
+		return (FightChar)this.getDelegate();
+	}
+	
+	
 	@Override
 	public boolean isBlocking() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getDelegate().isBlocking();
 	}
 
 	@Override
 	public boolean isBlockstunned() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getDelegate().isBlockstunned();
 	}
 
 	@Override
 	public boolean isHitstunned() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getDelegate().isHitstunned();
 	}
 
 	@Override
 	public boolean isTeching() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getDelegate().isTeching();
 	}
 
 	@Override
 	public Tech tech() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getDelegate().tech();
 	}
 
 	@Override
 	public boolean techFrame() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getDelegate().techFrame();
 	}
 
 	@Override
 	public boolean techHasAlreadyHit() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getDelegate().techHasAlreadyHit();
 	}
 
 	@Override
 	public void startTech(Tech tech) {
-		// TODO Auto-generated method stub
-		
+		this.getDelegate().startTech(tech);
 	}
-
-
-	
 
 }

@@ -97,7 +97,6 @@ public class EngineContract extends EngineDecorator{
 		// \pre !isGameOver()
 		if(isGameOver())  throw new PreConditionError("!isGameOver() ");
 		checkInvariant();
-	
 		
 		//traitement 
 		super.step(c1, c2);
@@ -105,7 +104,6 @@ public class EngineContract extends EngineDecorator{
 		
 		// \post: char1:Character ,  (char1=getChar(1)) == char1.step(c1)
 		// \post: char2:Character,   (char2=getChar(2)) == char2.step(c2)
-		// TODO 
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.cps.services.fightChar;
 
 import com.cps.services.character.Character;
+import com.cps.services.engine.Engine;
+import com.cps.services.hitbox.Hitbox;
 import com.cps.services.tech.Tech;
 
 public interface FightChar /*refine*/ extends Character{
@@ -27,9 +29,8 @@ public interface FightChar /*refine*/ extends Character{
 	// \inv isBlocking()==!isTeching()
 	// \inv isTeching()==!isHitstunned() 
 	
-	
-	
-	
+	/*Constructor*/
+	public void init (int l, int s, boolean f, Engine e, Hitbox h,Tech tech);
 	
 	/*Operators */
 	
@@ -38,8 +39,7 @@ public interface FightChar /*refine*/ extends Character{
 	public void startTech(Tech tech);
 	
 	
-	
-	// Spec supp pour step
+	// Specification supplementaire pour step()
 	
 	// \pre: step(c) requires !isHitStunned() ^ !isBlockStunned() ^ !isTeching()
 	// \post: step(PUNCH)=starTech(punch)

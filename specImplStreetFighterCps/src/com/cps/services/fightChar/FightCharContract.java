@@ -1,5 +1,8 @@
 package com.cps.services.fightChar;
 
+import com.cps.exception.InvariantError;
+import com.cps.exception.PostConditionError;
+import com.cps.exception.PreConditionError;
 import com.cps.services.character.CharacterContract;
 import com.cps.services.engine.Commande;
 import com.cps.services.engine.Engine;
@@ -11,84 +14,106 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 	public FightCharContract(FightChar delagate) {
 		super(delagate);
 	}
-	//TODO
+
+	public FightChar getDelegate() {
+		return (FightChar)this.getDelegate();
+	}
+
+	@Override
+	public void checkInvariant(){
+		super.checkInvariant();
+
+		if( !(isBlocking()==!isBlockstunned())) 
+			throw new InvariantError("isBlocking()== !isBlockstunned() ");
+
+		if(!(isBlocking()==!isTeching())) 
+			throw new InvariantError("isBlocking()== !isTeching() ");
+
+		if(!(isTeching()==!isHitstunned()))
+			throw new InvariantError("isTeching()==!isHitstunned()");
+	}
+
+
 
 	@Override
 	public int positionX() {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return getDelegate().positionX();
 	}
-	
+
 	@Override
 	public int positionY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getDelegate().positionY();
 	}
 
 	@Override
 	public Engine engine() {
-		// TODO Auto-generated method stub
-		return null;
+		return getDelegate().engine();
 	}
 
 	@Override
 	public Hitbox charBox() {
-		// TODO Auto-generated method stub
-		return null;
+		return getDelegate().charBox();
 	}
 
 	@Override
 	public int life() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getDelegate().life();
 	}
 
 	@Override
 	public int speed() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getDelegate().speed();
 	}
 
 	@Override
 	public boolean faceRight() {
-		// TODO Auto-generated method stub
-		return false;
+		return getDelegate().faceRight();
 	}
 
 	@Override
 	public boolean dead() {
-		// TODO Auto-generated method stub
-		return false;
+		return getDelegate().dead();
 	}
 
 	@Override
 	public void init(int l, int s, boolean f, Engine e, Hitbox h) {
-		// TODO Auto-generated method stub
-		
+		getDelegate().init(l, s, f, e, h);
 	}
 
 	@Override
 	public void moveLeft() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void moveRight() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void switchSide() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void step(Commande c) {
-		// TODO Auto-generated method stub
-		
+		super.step(c);
+
+		// \pre: step(c) requires !isHitStunned() ^ !isBlockStunned() ^ !isTeching()
+		if(!(!isHitstunned() && !isBlockstunned() && !isTeching()))
+			throw new PreConditionError("!isHitStunned() ^ !isBlockStunned() ^ !isTeching()");
+
+		checkInvariant();
+
+		// \post: step(PUNCH)=starTech(punch)
+
+		// \post: (c=BLOCK) => isBlocking()	
+		if( c==Commande.BLOCK)
+			if(!isBlocking()) throw new PostConditionError("(c=BLOCK) => isBlocking()");
 	}
 
 	@Override
@@ -121,7 +146,7 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 		return null;
 	}
 
-	
+
 	@Override
 	public boolean techFrame() {
 		// TODO Auto-generated method stub
@@ -136,12 +161,27 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 
 	@Override
 	public void startTech(Tech tech) {
-		// TODO Auto-generated method stub
+		// \pre !isTeching() ^ !isHitstunned() ^ !isBlockStunned()
+		if(!(!isHitstunned() && !isBlockstunned() && !isTeching()))
+			throw new PreConditionError
+			("!isHitStunned() ^ !isBlockStunned() ^ !isTeching()");
+
+		//Traitement 
+		startTech(tech);
+
+		//capture
+		checkInvariant();
+
+		// \post isTeching()
+		if(! isTeching()) 
+			throw new PostConditionError("isTeching()");
 		
+		checkInvariant();
+
 	}
 
 
 
-	
+
 
 }
