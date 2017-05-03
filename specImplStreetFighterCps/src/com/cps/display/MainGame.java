@@ -74,12 +74,16 @@ public class MainGame extends Application {
 		TestHitboxView rec2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,imgGuile);
 		TestHitboxView rechit = new TestHitboxView(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,Color.RED,null);
 		TestHitboxView rechit2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,Color.BLUE,null);
+
+		TestHitboxView rectech1 = new TestHitboxView(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,null,null);
+		TestHitboxView rectech2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,null);
+
 		
-		group.getChildren().addAll(arene,rec,rec2,rechit,rechit2);
+		group.getChildren().addAll(arene,rec,rec2,rechit,rechit2, rectech1, rectech2);
 
 		Scene scene = new Scene(group, hauteur,largeur);
 		
-		this.rt=new realTimeDealer(rec, rec2, rechit, rechit2, scene, engine);
+		this.rt=new realTimeDealer(rec, rec2, rechit, rechit2, rectech1, rectech1, scene, engine);
 		rt.start();
 		
 		moveRecOnKeyPress(scene);

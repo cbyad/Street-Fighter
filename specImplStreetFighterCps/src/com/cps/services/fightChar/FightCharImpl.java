@@ -17,7 +17,8 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 	public boolean techFrame;
 	public boolean techHasAlreadyHit; 
 	public int cycle[];
-
+	public boolean slideLeft;
+	
 	public FightCharImpl() {
 	}
 
@@ -121,147 +122,231 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 
 	@Override
 	public void step(Commande c){
-		this.isBlocking=false;
-		for (int i=0;i<2;i++){
-			if(this.engine.getPlayer(i+1).getChar()!=this){
-				if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
-					int xpre=this.x;
-					if (this.x<this.engine.getPlayer(i+1).getChar().positionX()){
-						this.x-=this.speed;
-						if (this.x<0)
-							this.x=0;
+		if (!dead()){
+			this.techFrame=false;
+			if (!this.techHasAlreadyHit()){
+				for (int i=0;i<2;i++){
+					if(this.engine.getPlayer(i+1).getChar()!=this){
+						if (this.engine.getPlayer(i+1).getChar().isTeching()){
+							if(this.engine.getPlayer(i+1).getChar().techFrame()){
+								if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().tech().getHitBox())){
+									techHasAlreadyHit=true;
+									if (isBlocking&&(this.facing!=this.engine.getPlayer(i+1).getChar().faceRight())){
+										this.isBlocking=false;
+										this.isBlockstunned=true;
+										cycle[0]=this.engine.getPlayer(i+1).getChar().tech().bstun();
+									}
+									else {
+										this.isHitstunned=true;
+										cycle[0]=this.engine.getPlayer(i+1).getChar().tech().hstun();
+										this.life-=this.engine.getPlayer(i+1).getChar().tech().damage();
+										if (this.faceRight())
+											this.slideLeft=true;
+										else
+											this.slideLeft=false;
+										if (this.life<=0){
+											this.dead=true;
+											System.out.println("mort");
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			this.isBlocking=false;
+			for (int i=0;i<2;i++){
+				if(this.engine.getPlayer(i+1).getChar()!=this){
+					if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
+						int xpre=this.x;
+						if (this.x<this.engine.getPlayer(i+1).getChar().positionX()){
+							this.x-=this.speed;
+							if (this.x<0)
+								this.x=0;
+						}
+						else{
+							this.x+=this.speed;
+							if (this.x>this.engine.getWidth()-this.charBox().Length())
+								this.x=this.engine.getWidth()-this.charBox().Length();
+						}
+					}
+				}
+			}
+			
+			if (this.crouching){
+				this.crouching=false;
+				this.y= yStand;
+				this.hitbox.MoveTo(this.x, this.y);
+				this.hitbox.SetHeight(hStand);
+			}
+			
+			if (this.jumping){
+				if (this.positionY()<yStand){
+					this.vspeed-=this.grav;
+					this.y-=this.vspeed;
+		
+					for (int i=0;i<2;i++){
+						if(this.engine.getPlayer(i+1).getChar()!=this){
+							if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
+								if (this.x<this.engine.getPlayer(i+1).getChar().positionX()){
+									this.x-=this.speed;
+								
+								}
+								else{
+									this.x+=this.speed;
+								}
+								
+							}
+						}
+					}
+	
+				
+					this.charBox().MoveTo(this.positionX(), this.positionY());
+					
+					
+				}
+				if (this.positionY()>yStand){
+					this.y=yStand;
+	
+				}
+				
+				if (this.positionY()==yStand){
+					this.vspeed=0;
+					this.jumping=false;
+				}
+				
+			}
+			
+	
+			if (!this.isBlockstunned&&!this.isHitstunned&&!this.isTeching){	
+					
+				if (c==Commande.NEUTRAL){
+						
+				}
+				else{
+					for (int i=0;i<2;i++){
+						if(this.engine.getPlayer(i+1).getChar()!=this){
+							if(this.faceRight()){
+								if (this.positionX()>this.engine.getPlayer(i+1).getChar().positionX())
+									this.switchSide();
+							}
+							else {
+								if (this.positionX()<this.engine.getPlayer(i+1).getChar().positionX())
+									this.switchSide();
+							}
+						}
+					}
+					if (c==Commande.LEFT){
+			
+						this.moveLeft();
+					}
+			
+					else if (c==Commande.RIGHT){
+						
+						this.moveRight();
+					}
+						
+					else if (c==Commande.CROUCH){
+						if (!jumping)
+							this.crouch();
+					}
+						
+					else if (c==Commande.JUMP){
+						if (!jumping)	
+							this.jump();
+					}
+					
+					else if (c==Commande.BLOCK){
+						if (!jumping)
+							this.isBlocking=true;
+					}
+					
+					else if (c==Commande.PUNCH){
+						if (!jumping){
+							Tech t=new TechImpl();
+							if (this.faceRight()){
+								t.init(10, 4, 5, 2, 4, 3, this.x+69, this.y+14, 9, 28);
+							}
+							else {
+								t.init(10, 4, 5, 2, 4, 3, this.x-29, this.y+14,9,28);
+							}
+							this.startTech(t);
+						}
+					}
+					
+				}
+			}
+			
+			else {
+				if (isTeching){
+					if (cycle[0]>0){
+						cycle[0]--;
+					}
+					else {
+						if (cycle[1]>0){
+							this.techFrame=true;
+							cycle[1]--;
+						}
+						
+						else {
+							if (cycle[2]>0){
+								cycle[2]--;
+							}
+							else {
+								isTeching=false;
+							}
+						}
+					}
+				}
+				
+				if (isHitstunned){
+					isTeching=false;
+					isBlocking=false;
+					isBlockstunned=false;
+					if (crouching){
+						this.y= yStand;
+						this.hitbox.MoveTo(this.x, this.y);
+						this.hitbox.SetHeight(hStand);
+					}
+					crouching=false;
+					if (cycle[0]>0){
+						cycle[0]--;
+						if (this.slideLeft){
+							this.x-=this.speed/3;
+							if (this.x<0)
+								this.x=0;
+						}
+						else {
+							this.x+=this.speed/3;
+							if (this.x>this.engine.getWidth()-this.charBox().Length())
+								this.x=this.engine.getWidth()-this.charBox().Length();
+						}
 					}
 					else{
-						this.x+=this.speed;
-						if (this.x>this.engine.getWidth()-this.charBox().Length())
-							this.x=this.engine.getWidth()-this.charBox().Length();
+						isHitstunned=false;
+						techHasAlreadyHit=false;
+					}
+					this.charBox().MoveTo(this.x, this.y);
+				}
+				
+				if (isBlockstunned){
+					isTeching=false;
+					isBlocking=false;
+					isHitstunned=false;
+					crouching=false;
+					if (cycle[0]>0){
+						cycle[0]--;
+					}
+					else{
+						isBlockstunned=false;
+						techHasAlreadyHit=false;
 					}
 				}
+				
 			}
+			this.charBox().MoveTo(this.x, this.y);
 		}
-		
-		if (this.crouching){
-			this.crouching=false;
-			this.y= yStand;
-			this.hitbox.MoveTo(this.x, this.y);
-			this.hitbox.SetHeight(hStand);
-		}
-		
-		if (this.jumping){
-			if (this.positionY()<yStand){
-				this.vspeed-=this.grav;
-				this.y-=this.vspeed;
-	
-				for (int i=0;i<2;i++){
-					if(this.engine.getPlayer(i+1).getChar()!=this){
-						if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
-							if (this.x<this.engine.getPlayer(i+1).getChar().positionX()){
-								this.x-=this.speed;
-							
-							}
-							else{
-								this.x+=this.speed;
-							}
-							
-						}
-					}
-				}
-
-			
-				this.charBox().MoveTo(this.positionX(), this.positionY());
-				
-				
-			}
-			if (this.positionY()>yStand){
-				this.y=yStand;
-
-			}
-			
-			if (this.positionY()==yStand){
-				this.vspeed=0;
-				this.jumping=false;
-			}
-			
-		}
-		
-
-		if (!this.isBlockstunned&&!this.isHitstunned&&!this.isTeching){	
-				
-			if (c==Commande.NEUTRAL){
-					
-			}
-			else{
-				for (int i=0;i<2;i++){
-					if(this.engine.getPlayer(i+1).getChar()!=this){
-						if(this.faceRight()){
-							if (this.positionX()>this.engine.getPlayer(i+1).getChar().positionX())
-								this.switchSide();
-						}
-						else {
-							if (this.positionX()<this.engine.getPlayer(i+1).getChar().positionX())
-								this.switchSide();
-						}
-					}
-				}
-				if (c==Commande.LEFT){
-		
-					this.moveLeft();
-				}
-		
-				else if (c==Commande.RIGHT){
-					
-					this.moveRight();
-				}
-					
-				else if (c==Commande.CROUCH){
-					if (!jumping)
-						this.crouch();
-				}
-					
-				else if (c==Commande.JUMP){
-					if (!jumping)	
-						this.jump();
-				}
-				
-				else if (c==Commande.BLOCK){
-					if (!jumping)
-						this.isBlocking=true;
-				}
-				
-				else if (c==Commande.PUNCH){
-					if (!jumping){
-						Tech t=new TechImpl();
-						t.init(10, 4, 5, 2, 4, 3);
-						this.startTech(t);
-					}
-				}
-				
-			}
-		}
-		
-		else {
-			if (isTeching){
-				if (cycle[0]>0){
-					cycle[0]--;
-				}
-				else {
-					if (cycle[1]>0){
-						cycle[1]--;
-					}
-					
-					else {
-						if (cycle[2]>0){
-							cycle[2]--;
-						}
-						else {
-							isTeching=false;
-						}
-					}
-				}
-			}
-		}
-		this.charBox().MoveTo(this.x, this.y);
-
 	}
 
 

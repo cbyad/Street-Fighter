@@ -1,6 +1,7 @@
 package com.cps.services.tech;
 
 import com.cps.services.hitbox.Hitbox;
+import com.cps.services.hitbox.HitboxImpl;
 
 public class TechImpl implements Tech{
 	private int damage ;
@@ -47,10 +48,11 @@ public class TechImpl implements Tech{
 		this.sframe=sframe;
 		this.hframe=hframe;
 		this.rframe=rframe;	
+		this.hitbox=new HitboxImpl();
 	}
 	@Override
-	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int x, int y, int h, int l) {
-		this.init(damage, hstun, bstun, sframe, hframe, hframe);
+	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int rframe, int x, int y, int h, int l) {
+		this.init(damage, hstun, bstun, sframe, hframe, rframe);
 		hitbox.init(x, y, h, l);
 	}
 }

@@ -19,7 +19,7 @@ public interface Tech {
 	public Hitbox getHitBox();
 
 	/*Constructors*/
-	public void init(int damage, int hstun , int bstun , int sframe , int hframe ,int rframe);
+	public void init(int damage, int hstun , int bstun , int sframe , int hframe,int rframe);
 	public void init(int damage, int hstun , int bstun , int sframe ,
-			int hframe,int x, int y, int h , int l);
+			int hframe, int rframe, int x, int y, int h , int l);
 }
