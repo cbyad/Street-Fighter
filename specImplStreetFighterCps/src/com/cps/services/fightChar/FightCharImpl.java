@@ -140,10 +140,10 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 										this.isHitstunned=true;
 										cycle[0]=this.engine.getPlayer(i+1).getChar().tech().hstun();
 										this.life-=this.engine.getPlayer(i+1).getChar().tech().damage();
-										if (this.faceRight())
-											this.slideLeft=true;
-										else
+										if (this.engine.getPlayer(i+1).getChar().faceRight())
 											this.slideLeft=false;
+										else
+											this.slideLeft=true;
 										if (this.life<=0){
 											this.dead=true;
 											System.out.println("mort");

@@ -26,12 +26,14 @@ public class realTimeDealer extends Thread {
 	public boolean p2block;
 	public boolean p1tech1;
 	public boolean p2tech1;
-	public TestHitboxView rec;
-	public TestHitboxView rec2;
-	public TestHitboxView rechit;
-	public TestHitboxView rechit2;
-	public TestHitboxView rectech1;
-	public TestHitboxView rectech2;
+	public AssetDisplay rec;
+	public AssetDisplay rec2;
+	public AssetDisplay rechit;
+	public AssetDisplay rechit2;
+	public AssetDisplay rectech1;
+	public AssetDisplay rectech2;
+	public AssetDisplay lifebox1;
+	public AssetDisplay lifebox2;
 	public Scene scene;
 	public EngineImpl engine;
 	
@@ -44,7 +46,7 @@ public class realTimeDealer extends Thread {
 	private String tech1;
 	private String tech2;
 	
-	public realTimeDealer(TestHitboxView rec, TestHitboxView rec2, TestHitboxView rechit, TestHitboxView rechit2, TestHitboxView rectech1, TestHitboxView rectech2, Scene scene, EngineImpl engine){
+	public realTimeDealer(AssetDisplay rec, AssetDisplay rec2, AssetDisplay rechit, AssetDisplay rechit2, AssetDisplay rectech1, AssetDisplay rectech2, AssetDisplay lifebox1, AssetDisplay lifebox2, Scene scene, EngineImpl engine){
 		super();
 		this.p1left=false;
 		this.p2left=false;
@@ -70,6 +72,8 @@ public class realTimeDealer extends Thread {
 		this.techcycle2=new int[3];
 		this.rectech1=rectech1;
 		this.rectech2=rectech2;
+		this.lifebox1=lifebox1;
+		this.lifebox2=lifebox2;
 	}
 	
 	public void run(){
@@ -828,6 +832,11 @@ public class realTimeDealer extends Thread {
 			rechit.setHeight(engine.getChar(1).charBox().Height());
 			rechit.setWidth(engine.getChar(1).charBox().Length());
 			
+			
+			lifebox1.setWidth(engine.getChar(1).life());
+			
+			lifebox2.setX(engine.getWidth()-5-engine.getChar(2).life());
+			lifebox2.setWidth(engine.getChar(2).life());
 			
 			
 			/*

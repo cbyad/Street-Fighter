@@ -70,22 +70,24 @@ public class MainGame extends Application {
 
 		Group group = new Group();
 
-		TestHitboxView rec = new TestHitboxView(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,null,imgRyu);
-		TestHitboxView rec2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,imgGuile);
-		TestHitboxView rechit = new TestHitboxView(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,Color.RED,null);
-		TestHitboxView rechit2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,Color.BLUE,null);
+		AssetDisplay rec = new AssetDisplay(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,null,imgRyu);
+		AssetDisplay rec2 = new AssetDisplay(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,imgGuile);
+		AssetDisplay rechit = new AssetDisplay(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,Color.RED,null);
+		AssetDisplay rechit2 = new AssetDisplay(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,Color.BLUE,null);
 
-		TestHitboxView rectech1 = new TestHitboxView(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,null,null);
-		TestHitboxView rectech2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,null);
+		AssetDisplay rectech1 = new AssetDisplay(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,null,null);
+		AssetDisplay rectech2 = new AssetDisplay(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,null);
 
+		AssetDisplay lifebox1= new AssetDisplay(5,5,100, 20,null,new Image(Files.newInputStream(Paths.get("res/sprites/lifebox.png"))));
+		AssetDisplay lifebox2= new AssetDisplay(largeur-105,5,100, 20,null,new Image(Files.newInputStream(Paths.get("res/sprites/lifebox.png"))));
 		
-		group.getChildren().addAll(arene,rec,rec2,rechit,rechit2, rectech1, rectech2);
+		group.getChildren().addAll(arene,rec,rec2,rechit,rechit2, rectech1, rectech2, lifebox1, lifebox2);
 
 		Scene scene = new Scene(group, hauteur,largeur);
 		
-		this.rt=new realTimeDealer(rec, rec2, rechit, rechit2, rectech1, rectech1, scene, engine);
+		this.rt=new realTimeDealer(rec, rec2, rechit, rechit2, rectech1, rectech2, lifebox1, lifebox2, scene, engine);
 		rt.start();
-		
+		//rec, rec2, echit, rechit2, rectech1, rectech2, lifebox1, lifebox2,  scene, engine
 		moveRecOnKeyPress(scene);
 
 		stage.setScene(scene);

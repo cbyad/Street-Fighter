@@ -9,11 +9,11 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-public class TestHitboxView extends Rectangle {
+public class AssetDisplay extends Rectangle {
 	
 	public int x ,y ,h ,w ;
 	
-	public TestHitboxView(int x ,int y , int w ,int h,Paint color, Image sprite) {
+	public AssetDisplay(int x ,int y , int w ,int h,Paint color, Image sprite) {
 		super(x,y,w,h);
 		if (color!=null){
 			this.setStroke(color); // mettre en commentaire pour ne pas voir contour du rectangle
