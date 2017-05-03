@@ -1,13 +1,14 @@
 package com.cps.services.player;
 
 import com.cps.services.character.Character;
+import com.cps.services.fightChar.FightChar;
 
 public interface Player {
 
-	public Character getChar();
+	public FightChar getChar();
 
 	public void init();
 	
 	// \post: getChar()=c
-	public void setChar(Character c);
+	public void setChar(FightChar c);
 }

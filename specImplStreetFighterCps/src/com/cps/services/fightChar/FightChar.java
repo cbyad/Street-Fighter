@@ -46,7 +46,7 @@ public interface FightChar /*refine*/ extends Character{
 	
 	// \pre: step(c) requires !isHitStunned() ^ !isBlockStunned() ^ !isTeching()
 	// \post: step(PUNCH)=starTech(punch)
-	// \post: (c=BLOCK) => isBlocking()
+	// \post: (c=BLOCK) => isBlocking()=true
 	
 	
 }

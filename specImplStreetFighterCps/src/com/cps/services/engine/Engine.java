@@ -1,6 +1,7 @@
 package com.cps.services.engine;
 
 import com.cps.services.character.Character;
+import com.cps.services.fightChar.FightChar;
 import com.cps.services.player.Player;
 
 /**
@@ -19,7 +20,7 @@ public interface Engine {
 	public int getWidth();
 
 	// \pre: i:int \in {1,2}
-	public Character getChar(int i);
+	public FightChar getChar(int i);
 
 	// \pre: i:int \in {1,2}
 	public Player getPlayer(int i);

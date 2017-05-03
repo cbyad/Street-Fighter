@@ -11,6 +11,7 @@ import com.cps.services.hitbox.Hitbox;
 import com.cps.services.hitbox.HitboxImpl;
 import com.cps.services.player.PlayerImpl;
 import com.cps.services.engine.Commande;
+import com.cps.services.fightChar.FightCharImpl;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -39,8 +40,8 @@ public class MainGame extends Application {
 		engine=new EngineImpl();
 		PlayerImpl player1=new PlayerImpl();
 		PlayerImpl player2=new PlayerImpl();
-		CharacterImpl char1=new CharacterImpl();
-		CharacterImpl char2=new CharacterImpl();
+		FightCharImpl char1=new FightCharImpl();
+		FightCharImpl char2=new FightCharImpl();
 		HitboxImpl hit1 = new HitboxImpl(); 
 		HitboxImpl hit2 = new HitboxImpl();
 
@@ -56,8 +57,8 @@ public class MainGame extends Application {
 
 		hit1.init(largeur/2-espacement/2, hauteur-130, 114, 30);
 		hit2.init(largeur/2+espacement/2, hauteur-130, 114, 30);
-		char1.init(100, 8, true, engine, hit1);
-		char2.init(100, 8, false, engine, hit2);
+		char1.init(100, 8, true, engine, hit1, null);
+		char2.init(100, 8, false, engine, hit2, null);
 		player1.setChar(char1);
 		player2.setChar(char2);
 
@@ -69,17 +70,19 @@ public class MainGame extends Application {
 
 		Group group = new Group();
 
-		TestHitboxView rec = new TestHitboxView(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,Color.RED,imgRyu);
-		TestHitboxView rec2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,Color.BLUE,imgGuile);
-
-		group.getChildren().addAll(arene,rec,rec2);
+		TestHitboxView rec = new TestHitboxView(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,null,imgRyu);
+		TestHitboxView rec2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,imgGuile);
+		TestHitboxView rechit = new TestHitboxView(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,Color.RED,null);
+		TestHitboxView rechit2 = new TestHitboxView(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,Color.BLUE,null);
+		
+		group.getChildren().addAll(arene,rec,rec2,rechit,rechit2);
 
 		Scene scene = new Scene(group, hauteur,largeur);
 		
-		this.rt=new realTimeDealer(rec, rec2, scene, engine);
+		this.rt=new realTimeDealer(rec, rec2, rechit, rechit2, scene, engine);
 		rt.start();
 		
-		moveRecOnKeyPress(scene, rec, rec2);
+		moveRecOnKeyPress(scene);
 
 		stage.setScene(scene);
 		stage.setTitle("Destroy the bastards");
@@ -89,7 +92,7 @@ public class MainGame extends Application {
 		stage.show();
 	}
 
-	private void moveRecOnKeyPress(Scene scene, TestHitboxView rec, TestHitboxView rec2) {
+	private void moveRecOnKeyPress(Scene scene) {
 
 		scene.setOnKeyPressed(event->{
 
@@ -108,9 +111,19 @@ public class MainGame extends Application {
 				rt.p1crouch=true;
 			} 
 			break ;
-
+			
 			case UP: {
 				rt.p1jump=true;
+			}
+			break;
+			
+			case NUMPAD1: {
+				rt.p1block=true;
+			}
+			break;
+			
+			case NUMPAD2: {
+				rt.p1tech1=true;
 			}
 			break;
 			
@@ -131,6 +144,16 @@ public class MainGame extends Application {
 			
 			case Z: {
 				rt.p2jump=true;
+			}
+			break;
+			
+			case H: {
+				rt.p2block=true;
+			}
+			break;
+			
+			case J: {
+				rt.p2tech1=true;
 			}
 			break;
 			
@@ -166,6 +189,16 @@ public class MainGame extends Application {
 			}
 			break;
 			
+			case NUMPAD1: {
+				rt.p1block=false;
+			}
+			break;
+			
+			case NUMPAD2: {
+				rt.p1tech1=false;
+			}
+			break;
+			
 			case Q: {
 				rt.p2left=false;
 			}
@@ -183,6 +216,16 @@ public class MainGame extends Application {
 			
 			case Z: {
 				rt.p2jump=false;
+			}
+			break;
+			
+			case H: {
+				rt.p2block=false;
+			}
+			break;
+			
+			case J: {
+				rt.p2tech1=false;
 			}
 			break;
 			

@@ -3,6 +3,7 @@ package com.cps.services.engine;
 import com.cps.exception.ContractError;
 import com.cps.services.player.Player;
 import com.cps.services.character.Character;
+import com.cps.services.fightChar.FightChar;
 import com.cps.services.hitbox.Hitbox;
 import com.cps.services.hitbox.HitboxImpl;
 
@@ -30,7 +31,7 @@ public class EngineImpl implements Engine{
 	}
 	
 	@Override
-	public Character getChar(int i) {
+	public FightChar getChar(int i) {
 
 		if (i==1) return p1.getChar() ;
 		if (i==2) return p2.getChar() ;
