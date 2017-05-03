@@ -18,9 +18,8 @@ public class CharacterImpl implements Character{
 	protected boolean crouching;
 	protected int vspeed;
 	protected int hStand;
-	protected int lStand;
 	protected int hCrouch;
-	protected int lCrouch;
+	protected int yStand;
 	
 	public CharacterImpl() {
 	}
@@ -64,6 +63,16 @@ public class CharacterImpl implements Character{
 	public boolean dead() {
 		return this.dead;
 	}
+	
+	@Override
+	public int getVSpeed(){
+		return this.vspeed;
+	}
+	
+	@Override
+	public int getYStand(){
+		return yStand;
+	}
 
 	@Override
 	public void init(int l, int s, boolean f, Engine e, Hitbox h) {
@@ -78,10 +87,9 @@ public class CharacterImpl implements Character{
 		this.crouching=false;
 		this.vspeed=0;
 		this.hStand=this.hitbox.Height();
-		this.lStand=this.hitbox.Length();
 		this.hCrouch=(2*hStand)/3;
-		this.lCrouch=(2*lStand)/3;
 		this.grav=5;
+		this.yStand=this.y;
 	}
 
 	@Override
@@ -151,6 +159,7 @@ public class CharacterImpl implements Character{
 	public void jump(){
 		this.jumping=true;
 		this.vspeed=this.speed*5;
+		this.y-=this.vspeed;
 	}
 	
 	@Override
@@ -159,30 +168,36 @@ public class CharacterImpl implements Character{
 		for (int i=0;i<2;i++){
 			if(this.engine.getPlayer(i+1).getChar()!=this){
 				if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
-					if (this.x<this.engine.getPlayer(i+1).getChar().positionX())
+					int xpre=this.x;
+					if (this.x<this.engine.getPlayer(i+1).getChar().positionX()){
 						this.x-=this.speed;
-					else
+						if (this.x<0)
+							this.x=0;
+					}
+					else{
 						this.x+=this.speed;
+						if (this.x>this.engine.getWidth()-this.charBox().Length())
+							this.x=this.engine.getWidth()-this.charBox().Length();
+					}
 				}
 			}
 		}
 		
 		if (this.crouching){
 			this.crouching=false;
-			this.y= this.y+hCrouch-hStand;
+			this.y= yStand;
 			this.hitbox.MoveTo(this.x, this.y);
 			this.hitbox.SetHeight(hStand);
 		}
 		
 		if (this.jumping){
-			if (this.positionY()<this.engine.getHeight()-hStand){
+			if (this.positionY()<yStand){
 				this.vspeed-=this.grav;
 				this.y-=this.vspeed;
 	
 				for (int i=0;i<2;i++){
 					if(this.engine.getPlayer(i+1).getChar()!=this){
 						if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
-							System.out.println("COLLIDES");
 							if (this.x<this.engine.getPlayer(i+1).getChar().positionX()){
 								this.x-=this.speed;
 							
@@ -200,9 +215,13 @@ public class CharacterImpl implements Character{
 				
 				
 			}
-			if (this.positionY()>=this.engine.getHeight()-hStand){
+			if (this.positionY()>yStand){
+				this.y=yStand;
+
+			}
+			
+			if (this.positionY()==yStand){
 				this.vspeed=0;
-				this.y=this.engine.getHeight()-hStand-1;
 				this.jumping=false;
 			}
 			

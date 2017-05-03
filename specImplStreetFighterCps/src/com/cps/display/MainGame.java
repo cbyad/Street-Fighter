@@ -51,11 +51,11 @@ public class MainGame extends Application {
 		engine.init(this.hauteur, this.largeur, this.espacement, player1, player2);
 
 		InputStream is = Files.newInputStream(Paths.get("res/arenes/airport.gif"));
-		InputStream ryu = Files.newInputStream(Paths.get("res/sprites/ryu.gif"));
-		InputStream guile = Files.newInputStream(Paths.get("res/sprites/guile.gif"));
+		InputStream ryu = Files.newInputStream(Paths.get("res/sprites/jackie/idle.png"));
+		InputStream guile = Files.newInputStream(Paths.get("res/sprites/jackie/idle.png"));
 
-		hit1.init(largeur/2-espacement/2, hauteur-130, 100, 40);
-		hit2.init(largeur/2+espacement/2, hauteur-130, 100, 40);
+		hit1.init(largeur/2-espacement/2, hauteur-130, 114, 30);
+		hit2.init(largeur/2+espacement/2, hauteur-130, 114, 30);
 		char1.init(100, 8, true, engine, hit1);
 		char2.init(100, 8, false, engine, hit2);
 		player1.setChar(char1);

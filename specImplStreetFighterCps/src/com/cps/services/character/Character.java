@@ -27,6 +27,8 @@ public interface Character {
 	public boolean faceRight();
 	public boolean dead();
 
+	public int getVSpeed();
+	public int getYStand();
 	/* Constructors */
 	
 	// \pre: init(l,s,f,e,h) requires l > 0 && s > 0

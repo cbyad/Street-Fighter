@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 public class TestHitboxView extends Rectangle {
 	
-	private int x ,y ,h ,w ;
+	public int x ,y ,h ,w ;
 	
 	public TestHitboxView(int x ,int y , int w ,int h,Paint color, Image sprite) {
 		super(x,y,w,h);
