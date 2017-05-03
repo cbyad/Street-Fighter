@@ -23,8 +23,8 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 	public void checkInvariant(){
 		super.checkInvariant();
 
-		if( !(isBlocking()==!isBlockstunned())) 
-			throw new InvariantError("isBlocking()== !isBlockstunned() ");
+		if( !(isBlocking()==isBlockstunned())) 
+			throw new InvariantError("isBlocking()== isBlockstunned() ");
 
 		if(!(isBlocking()==!isTeching())) 
 			throw new InvariantError("isBlocking()== !isTeching() ");
@@ -75,19 +75,18 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 
 	@Override
 	public void moveLeft() {
-		// TODO Auto-generated method stub
+		getDelegate().moveLeft();
 	}
 
 	@Override
 	public void moveRight() {
-		// TODO Auto-generated method stub
+		getDelegate().moveRight();
 
 	}
 
 	@Override
 	public void switchSide() {
-		// TODO Auto-generated method stub
-
+		getDelegate().switchSide();
 	}
 
 	@Override
@@ -109,45 +108,47 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 
 	@Override
 	public boolean isBlocking() {
-		// TODO Auto-generated method stub
-		return false;
+		return getDelegate().isBlocking();
 	}
 
 	@Override
 	public boolean isBlockstunned() {
-		// TODO Auto-generated method stub
-		return false;
+		return getDelegate().isBlockstunned();
 	}
 
 	@Override
 	public boolean isHitstunned() {
-		// TODO Auto-generated method stub
-		return false;
+		return getDelegate().isHitstunned();
 	}
 
 	@Override
 	public boolean isTeching() {
-		// TODO Auto-generated method stub
-		return false;
+		return getDelegate().isTeching();
 	}
 
 	@Override
 	public Tech tech() {
-		// TODO Auto-generated method stub
-		return null;
+		// \pre isTeching() 
+		if(!isTeching()) 
+			throw new PreConditionError("isTeching() ");
+		return getDelegate().tech();
 	}
 
 
 	@Override
 	public boolean techFrame() {
-		// TODO Auto-generated method stub
-		return false;
+		// \pre isTeching() 
+				if(!isTeching()) 
+					throw new PreConditionError("isTeching() ");
+				return getDelegate().techFrame();
 	}
 
 	@Override
 	public boolean techHasAlreadyHit() {
-		// TODO Auto-generated method stub
-		return false;
+		// \pre isTeching() 
+				if(!isTeching()) 
+					throw new PreConditionError("isTeching() ");
+				return getDelegate().techHasAlreadyHit();
 	}
 
 	@Override
@@ -158,25 +159,26 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 			("!isHitStunned() ^ !isBlockStunned() ^ !isTeching()");
 
 		//Traitement 
-		startTech(tech);
+		getDelegate().startTech(tech);
 
 		checkInvariant();
 
 		// \post isTeching()
 		if(! isTeching()) 
 			throw new PostConditionError("isTeching()");
-		
-		checkInvariant();
-
 	}
 
 	@Override
 	public void init(int l, int s, boolean f, Engine e, Hitbox h, Tech tech) {
+		super.init(l, s, f, e, h);
+
+		//traitement 
 		getDelegate().init(l, s, f, e, h, tech);
+		
+		checkInvariant();
+		
+		if(!(tech()==tech)) throw new PostConditionError("tech()==tech");
+		
 	}
-
-
-
-
 
 }

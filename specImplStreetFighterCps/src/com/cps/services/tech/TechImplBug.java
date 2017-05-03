@@ -3,52 +3,54 @@ package com.cps.services.tech;
 import com.cps.services.hitbox.Hitbox;
 
 public class TechImplBug implements Tech{
+	private int damage ;
+	private int hstun ;
+	private int bstun ;
+	private int sframe;
+	private int hframe;
+	private int rframe;
+	private Hitbox hitbox ;
 
 	@Override
 	public int damage() {
-		// TODO Auto-generated method stub
-		return 0;
+		return damage;
 	}
-
 	@Override
 	public int hstun() {
-		// TODO Auto-generated method stub
-		return 0;
+		return hstun;
 	}
-
 	@Override
 	public int bstun() {
-		// TODO Auto-generated method stub
-		return 0;
+		return bstun;
 	}
-
 	@Override
 	public int sframe() {
-		// TODO Auto-generated method stub
-		return 0;
+		return sframe;
 	}
-
 	@Override
 	public int hframe() {
-		// TODO Auto-generated method stub
-		return 0;
+		return hframe;
 	}
-
 	@Override
-	public int rframe() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int	rframe() {
+		return rframe;
 	}
-
 	@Override
-	public Hitbox getHitBox(int x, int y, int h, int l) {
-		// TODO Auto-generated method stub
-		return null;
+	public Hitbox getHitBox() {
+		return hitbox ;
 	}
-
 	@Override
 	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int rframe) {
-		// TODO Auto-generated method stub
-		
+		this.damage=-damage;
+		this.hstun=bstun;
+		this.bstun=hstun;
+		this.sframe=sframe;
+		this.hframe=hframe;
+		this.rframe=rframe;	
+	}
+	@Override
+	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int x, int y, int h, int l) {
+		this.init(damage, hstun, bstun, sframe, hframe, hframe);
+		hitbox.init(y, x, l, h);
 	}
 }

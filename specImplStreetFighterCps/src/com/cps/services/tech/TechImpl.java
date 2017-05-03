@@ -36,8 +36,7 @@ public class TechImpl implements Tech{
 		return rframe;
 	}
 	@Override
-	public Hitbox getHitBox(int x, int y,int h, int l) {
-		hitbox.init(x, y, h, l);
+	public Hitbox getHitBox() {
 		return hitbox ;
 	}
 	@Override
@@ -48,5 +47,10 @@ public class TechImpl implements Tech{
 		this.sframe=sframe;
 		this.hframe=hframe;
 		this.rframe=rframe;	
+	}
+	@Override
+	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int x, int y, int h, int l) {
+		this.init(damage, hstun, bstun, sframe, hframe, hframe);
+		hitbox.init(x, y, h, l);
 	}
 }

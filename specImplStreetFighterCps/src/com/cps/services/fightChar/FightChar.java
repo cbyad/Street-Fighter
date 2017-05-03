@@ -25,12 +25,15 @@ public interface FightChar /*refine*/ extends Character{
 	
 	/*Invariants*/
 	
-	// \inv isBlocking()== !isBlockstunned() 
+	// \inv isBlocking()==isBlockstunned() 
 	// \inv isBlocking()==!isTeching()
 	// \inv isTeching()==!isHitstunned() 
 	
 	/*Constructor*/
+	// on recupere les meme specification de character mais on ajoute:
+	// \post tech()==tech
 	public void init (int l, int s, boolean f, Engine e, Hitbox h,Tech tech);
+	
 	
 	/*Operators */
 	

@@ -5,7 +5,7 @@ import com.cps.services.engine.Engine;
 import com.cps.services.hitbox.Hitbox;
 
 
-public  abstract class CharacterDecorator implements Character{ 
+public abstract  class CharacterDecorator implements Character{ 
 
 	protected Character delegate ;
 	
@@ -80,6 +80,16 @@ public  abstract class CharacterDecorator implements Character{
 	@Override
 	public void step (Commande c){
 		delegate.step(c);
+	}
+
+	@Override
+	public int getVSpeed() {
+		return delegate.getVSpeed();
+	}
+
+	@Override
+	public int getYStand() {
+		return delegate.getYStand();
 	}
 
 

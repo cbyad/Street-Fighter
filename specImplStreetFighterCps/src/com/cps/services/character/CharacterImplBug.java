@@ -129,4 +129,16 @@ public class CharacterImplBug implements Character{
 			this.moveRight();
 	}
 
+	@Override
+	public int getVSpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getYStand() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
