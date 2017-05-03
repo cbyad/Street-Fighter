@@ -18,6 +18,12 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 	public boolean techHasAlreadyHit; 
 	public int cycle[];
 	public boolean slideLeft;
+	private String name;
+	
+	
+	public void setName(String name){
+		this.name=name;
+	}
 	
 	public FightCharImpl() {
 	}
@@ -131,10 +137,12 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 							if(this.engine.getPlayer(i+1).getChar().techFrame()){
 								if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().tech().getHitBox())){
 									techHasAlreadyHit=true;
-									if (isBlocking&&(this.facing!=this.engine.getPlayer(i+1).getChar().faceRight())){
+									if (isBlocking/*&&(this.facing!=this.engine.getPlayer(i+1).getChar().faceRight())*/){
 										this.isBlocking=false;
 										this.isBlockstunned=true;
 										cycle[0]=this.engine.getPlayer(i+1).getChar().tech().bstun();
+										this.techHasAlreadyHit=true;
+								
 									}
 									else {
 										this.isHitstunned=true;
@@ -146,7 +154,6 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 											this.slideLeft=true;
 										if (this.life<=0){
 											this.dead=true;
-											System.out.println("mort");
 										}
 									}
 								}
@@ -174,7 +181,7 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 				}
 			}
 			
-			if (this.crouching){
+			if ((this.crouching)&&!isTeching){
 				this.crouching=false;
 				this.y= yStand;
 				this.hitbox.MoveTo(this.x, this.y);
@@ -265,11 +272,71 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 					else if (c==Commande.PUNCH){
 						if (!jumping){
 							Tech t=new TechImpl();
-							if (this.faceRight()){
-								t.init(10, 4, 5, 2, 4, 3, this.x+69, this.y+14, 9, 28);
+							if (name=="jackie"){
+
+								if (this.faceRight()){
+									t.init(10, 4, 5, 2, 4, 3, this.x+69, this.y+14, 9, 28);
+								}
+								else {
+									t.init(10, 4, 5, 2, 4, 3, this.x-39, this.y+14,9,38);
+								}
+							}	
+							else if (name=="elsa"){
+								this.crouch();
+								if (this.faceRight()){
+									t.init(8, 3, 1, 3, 4, 5, this.x+34, this.y+13, 9, 27);
+								}
+								else{
+									t.init(8, 3, 1, 3, 4, 5, this.x-28, this.y+13, 9, 27);
+								}
 							}
-							else {
-								t.init(10, 4, 5, 2, 4, 3, this.x-29, this.y+14,9,28);
+							this.startTech(t);
+						}
+					}
+					
+					else if (c==Commande.KICK){
+						if (!jumping){
+							Tech t=new TechImpl();
+							if (name=="jackie"){
+
+								if (this.faceRight()){
+									t.init(5, 3, 3, 4, 7, 6, this.x+48, this.y+18, 17, 43);
+								}
+								else {
+									t.init(5, 3, 3, 4, 7, 6, this.x-44, this.y+18, 17, 43);
+								}
+							}
+							else if (name=="elsa"){
+								if (this.faceRight()){
+									t.init(14, 3, 1, 8, 4, 2, this.x+47, this.y+3, 23, 43);
+								}
+								else {
+									t.init(5, 5, 3, 2, 7, 6, this.x-44, this.y+3, 23, 43);
+								}
+							}
+							this.startTech(t);
+						}
+					}
+					
+					else if (c==Commande.SPECIAL){
+						if (!jumping){
+							Tech t=new TechImpl();
+							if (name=="jackie"){
+
+								if (this.faceRight()){
+									t.init(15, 8, 2, 1, 5, 10, this.x+52, this.y+6, 36, 18);
+								}
+								else{
+									t.init(15, 8, 2, 1, 5, 10, this.x-19, this.y+6, 36, 18);
+								}
+							}
+							else if (name=="elsa"){
+								if (this.faceRight()){
+									t.init(40, 10, 1, 1, 6, 8, this.x+44, this.y+25, 53, 53);
+								}
+								else {
+									t.init(40, 10, 1, 1, 6, 6, this.x-54, this.y+25, 53, 53);
+								}
 							}
 							this.startTech(t);
 						}
@@ -294,6 +361,12 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 								cycle[2]--;
 							}
 							else {
+								if (crouching){
+									this.crouching=false;
+									this.y= yStand;
+									this.hitbox.MoveTo(this.x, this.y);
+									this.hitbox.SetHeight(hStand);
+								}
 								isTeching=false;
 							}
 						}
@@ -341,19 +414,21 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 					else{
 						isBlockstunned=false;
 						techHasAlreadyHit=false;
+						isBlocking=true;
 					}
 				}
 				
 			}
-			this.charBox().MoveTo(this.x, this.y);
+			
 		}
+		this.charBox().MoveTo(this.x, this.y);
 	}
 
 
 	@Override
 	public void init(int l, int s, boolean f, Engine e, Hitbox h, Tech tech) {
 		super.init(l, s, f, e, h);
-		//this.tech=tech;
+		this.tech=tech;
 		isBlocking=false ;
 		isBlockstunned=false ;
 		isHitstunned=false;

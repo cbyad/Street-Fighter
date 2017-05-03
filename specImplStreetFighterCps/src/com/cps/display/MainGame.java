@@ -10,6 +10,7 @@ import com.cps.services.engine.EngineImpl;
 import com.cps.services.hitbox.Hitbox;
 import com.cps.services.hitbox.HitboxImpl;
 import com.cps.services.player.PlayerImpl;
+import com.cps.services.tech.TechImpl;
 import com.cps.services.engine.Commande;
 import com.cps.services.fightChar.FightCharImpl;
 
@@ -55,10 +56,15 @@ public class MainGame extends Application {
 		InputStream ryu = Files.newInputStream(Paths.get("res/sprites/jackie/idle.png"));
 		InputStream guile = Files.newInputStream(Paths.get("res/sprites/jackie/idle.png"));
 
-		hit1.init(largeur/2-espacement/2, hauteur-130, 114, 30);
-		hit2.init(largeur/2+espacement/2, hauteur-130, 114, 30);
-		char1.init(100, 8, true, engine, hit1, null);
-		char2.init(100, 8, false, engine, hit2, null);
+		hit1.init(largeur/2-espacement/2, hauteur-114, 114, 30);
+		hit2.init(largeur/2+espacement/2, hauteur-99, 99, 30);
+		TechImpl t=new TechImpl();
+		t.init(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		char1.init(100, 8, true, engine, hit1, t);
+		char2.init(50, 12, false, engine, hit2, t);
+		
+		char1.setName("jackie");
+		char2.setName("elsa");
 		player1.setChar(char1);
 		player2.setChar(char2);
 
@@ -133,6 +139,16 @@ public class MainGame extends Application {
 			}
 			break;
 			
+			case NUMPAD3: {
+				rt.p1tech2=true;
+			}
+			break;
+			
+			case NUMPAD5: {
+				rt.p1tech3=true;
+			}
+			break;
+			
 			case Q: {
 				rt.p2left=true;
 			}
@@ -160,6 +176,16 @@ public class MainGame extends Application {
 			
 			case J: {
 				rt.p2tech1=true;
+			}
+			break;
+			
+			case K: {
+				rt.p2tech2=true;
+			}
+			break;
+			
+			case I: {
+				rt.p2tech3=true;
 			}
 			break;
 			
@@ -205,6 +231,16 @@ public class MainGame extends Application {
 			}
 			break;
 			
+			case NUMPAD3: {
+				rt.p1tech2=false;
+			}
+			break;
+			
+			case NUMPAD5:{
+				rt.p1tech3=false;
+			}
+			break;
+			
 			case Q: {
 				rt.p2left=false;
 			}
@@ -232,6 +268,16 @@ public class MainGame extends Application {
 			
 			case J: {
 				rt.p2tech1=false;
+			}
+			break;
+			
+			case K: {
+				rt.p2tech2=false;
+			}
+			break;
+			
+			case I: {
+				rt.p2tech3=false;
 			}
 			break;
 			
