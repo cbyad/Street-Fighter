@@ -25,6 +25,14 @@
 	            classpath="${build}">
 	        </java>
     </target>
+	
+	
+
+	<target name="bug" depends="compile" description="run street_fighter game with bugs">
+	        <java classname="com.cps.display.MainGameBug" fork="true"
+	            classpath="${build}">
+	        </java>
+    </target>
     
     <target name="test" depends="compile" description="run MBT test">
         <java classname="com.cps.test.MBT"

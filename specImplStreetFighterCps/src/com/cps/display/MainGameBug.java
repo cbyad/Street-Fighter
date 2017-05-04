@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import com.cps.services.character.CharacterImpl;
 import com.cps.services.engine.Engine;
 import com.cps.services.engine.EngineContract;
-import com.cps.services.engine.EngineImpl;
+import com.cps.services.engine.EngineImplBug;
 import com.cps.services.hitbox.Hitbox;
 import com.cps.services.hitbox.HitboxContract;
 import com.cps.services.hitbox.HitboxImpl;
@@ -27,8 +27,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class MainGame extends Application {
-	private EngineImpl engine;
+public class MainGameBug extends Application {
+	private EngineImplBug engine;
 	private int hauteur;
 	private int largeur;
 	private int espacement;
@@ -43,7 +43,7 @@ public class MainGame extends Application {
 		this.largeur=768;
 		this.hauteur=384;
 		this.espacement=100;
-		engine=new EngineImpl();
+		engine=new EngineImplBug();
 		PlayerImpl player1=new PlayerImpl();
 		PlayerImpl player2=new PlayerImpl();
 		FightCharImpl char1=new FightCharImpl();

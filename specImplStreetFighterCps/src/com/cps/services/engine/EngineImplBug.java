@@ -54,9 +54,9 @@ public class EngineImplBug implements Engine{
 	@Override
 	public void init(int h, int w, int s, Player p1, Player p2) {
 
-		this.height= h;
-		this.width=w ;
-		this.defaultSpace=s;
+		this.height= w;
+		this.width=h ;
+		this.defaultSpace=s*2;
 		this.p1 =p1 ;
 		this.p2 =p2 ;
 		this.gameOver =false ;
@@ -65,7 +65,7 @@ public class EngineImplBug implements Engine{
 	@Override
 	public void step(Commande c1, Commande c2) {
 		//verifier que le deplacement ne depasse pas les limites du jeu
-				this.p1.getChar().step(c1);
-				this.p2.getChar().step(c2);
+				this.p1.getChar().step(c2);
+				this.p2.getChar().step(c1);
 	}
 }
