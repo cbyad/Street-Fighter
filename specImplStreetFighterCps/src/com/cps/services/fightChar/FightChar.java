@@ -25,7 +25,6 @@ public interface FightChar /*refine*/ extends Character{
 	
 	/*Invariants*/
 	
-	// \inv isBlocking()==isBlockstunned() 
 	// \inv isBlocking()==!isTeching()
 	// \inv isTeching()==!isHitstunned() 
 	

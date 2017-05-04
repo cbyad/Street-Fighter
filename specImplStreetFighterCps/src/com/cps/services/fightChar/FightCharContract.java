@@ -23,9 +23,6 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 	public void checkInvariant(){
 		super.checkInvariant();
 
-		if( !(isBlocking()==isBlockstunned())) 
-			throw new InvariantError("isBlocking()== isBlockstunned() ");
-
 		if(!(isBlocking()==!isTeching())) 
 			throw new InvariantError("isBlocking()== !isTeching() ");
 
