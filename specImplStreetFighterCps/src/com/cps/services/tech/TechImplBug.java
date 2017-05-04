@@ -49,8 +49,10 @@ public class TechImplBug implements Tech{
 		this.rframe=rframe;	
 	}
 	@Override
-	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int x, int y, int h, int l) {
-		this.init(damage, hstun, bstun, sframe, hframe, hframe);
-		hitbox.init(y, x, l, h);
+	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int rframe, int x, int y, int h, int l) {
+		
+			this.init(damage, hstun, bstun, sframe, hframe, hframe);
+			hitbox.init(y, x, l, h);
 	}
+
 }

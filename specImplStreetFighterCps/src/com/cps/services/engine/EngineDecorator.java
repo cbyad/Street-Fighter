@@ -2,6 +2,7 @@ package com.cps.services.engine;
 
 import com.cps.services.player.Player;
 import com.cps.services.character.Character;
+import com.cps.services.fightChar.FightChar;
 
 
 /****************************************
@@ -25,7 +26,7 @@ public  abstract class EngineDecorator implements Engine{
 		return delegate.getWidth() ;
 	}
 	@Override
-	public Character getChar(int i) {
+	public FightChar getChar(int i) {
 		return delegate.getChar(i);
 	}
 	

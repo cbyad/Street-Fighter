@@ -1,6 +1,6 @@
 package com.cps.services.player;
 
-import com.cps.services.character.Character;
+import com.cps.services.fightChar.FightChar;
 
 public abstract class PlayerDecorator implements Player {
 
@@ -11,7 +11,7 @@ public abstract class PlayerDecorator implements Player {
 	}
 	
 	@Override
-	public Character getChar() {
+	public FightChar getChar() {
 		return delegate.getChar();
 	}
 
@@ -21,7 +21,7 @@ public abstract class PlayerDecorator implements Player {
 	}
 
 	@Override
-	public void setChar(Character c) {
+	public void setChar(FightChar c) {
 		delegate.setChar(c);
 	}
 

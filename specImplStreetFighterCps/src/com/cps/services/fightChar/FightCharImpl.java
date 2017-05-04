@@ -75,55 +75,13 @@ public class FightCharImpl extends CharacterImpl implements FightChar{
 	
 	@Override
 	public void moveLeft() {
-
-		int xpre=this.x;
-		this.x=this.x-this.speed;
-		this.charBox().MoveTo(this.positionX(), this.positionY());
-
-		boolean exist=false;
-		for (int i=0;i<2;i++){
-			if(this.engine.getPlayer(i+1).getChar()!=this){
-				if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox())){
-					exist=true;
-					
-				}
-			}
-		}
-
-		if (!exist){
-			if (xpre<this.speed())
-				this.x=0;
-		}
-		else {
-			this.x=xpre;
-		}
-		this.charBox().MoveTo(this.positionX(), this.positionY());
+		super.moveLeft();
 	}
 
 	@Override
 	public void moveRight() {
-		int xpre=this.x;
-		this.x=this.x+this.speed;
-		this.charBox().MoveTo(this.positionX(), this.positionY());
-		boolean exist=false;
-		for (int i=0;i<2;i++){
-			if(this.engine.getChar(i+1)!=this){
-				if (this.charBox().CollidesWith(this.engine.getPlayer(i+1).getChar().charBox()))
-					exist=true;
-			}
-		}
-
-		if (!exist){
-			if (xpre>this.engine.getWidth()-this.charBox().Length()-this.speed())
-				this.x=this.engine.getWidth()-this.charBox().Length();
-		}
-		else {
-			this.x=xpre;
-		}
-		this.charBox().MoveTo(this.positionX(), this.positionY());
+		super.moveRight();
 	}
-
-
 
 
 	@Override

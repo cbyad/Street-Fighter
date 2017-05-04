@@ -228,6 +228,7 @@ public class realTimeDealer extends Thread {
 						rec.setHeight(engine.getChar(1).charBox().Height());
 						rec.setWidth(engine.getChar(1).charBox().Length());
 						rectech1.setStrokeWidth(0);
+						
 					}
 					else{
 						if (this.engine.getChar(1).isBlockstunned()){
@@ -440,6 +441,7 @@ public class realTimeDealer extends Thread {
 						rec.setHeight(engine.getChar(1).charBox().Height());
 						rec.setWidth(engine.getChar(1).charBox().Length());
 						rectech1.setStrokeWidth(0);
+					
 					}
 					else{
 						if (this.engine.getChar(1).isBlockstunned()){
@@ -651,6 +653,7 @@ public class realTimeDealer extends Thread {
 						rec2.setHeight(engine.getChar(2).charBox().Height());
 						rec2.setWidth(engine.getChar(2).charBox().Length());
 						rectech2.setStrokeWidth(0);
+
 					}
 					else{
 						if (this.engine.getChar(2).isBlockstunned()){
@@ -1077,9 +1080,6 @@ public class realTimeDealer extends Thread {
 	
 		
 	
-
-
-			
 			rechit2.setX(engine.getChar(2).charBox().PositionX());
 			rechit2.setY(engine.getChar(2).charBox().PositionY());
 			rechit2.setHeight(engine.getChar(2).charBox().Height());
@@ -1095,17 +1095,7 @@ public class realTimeDealer extends Thread {
 			lifebox2.setX(engine.getWidth()-5-engine.getChar(2).life());
 			lifebox2.setWidth(engine.getChar(2).life());
 			
-			
-			/*
-			this.p1left=false;
-			this.p2left=false;
-			this.p1right=false;
-			this.p2right=false;
-			this.p1jump=false;
-			this.p2jump=false;
-			this.p1crouch=false;
-			this.p2crouch=false;
-			*/
+	
 			try{
 				Thread.sleep(50);
 			} catch (InterruptedException e){

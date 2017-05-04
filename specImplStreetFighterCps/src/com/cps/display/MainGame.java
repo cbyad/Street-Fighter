@@ -8,6 +8,7 @@ import com.cps.services.character.CharacterImpl;
 import com.cps.services.engine.Engine;
 import com.cps.services.engine.EngineImpl;
 import com.cps.services.hitbox.Hitbox;
+import com.cps.services.hitbox.HitboxContract;
 import com.cps.services.hitbox.HitboxImpl;
 import com.cps.services.player.PlayerImpl;
 import com.cps.services.tech.TechImpl;
@@ -15,8 +16,10 @@ import com.cps.services.engine.Commande;
 import com.cps.services.fightChar.FightCharImpl;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -45,7 +48,12 @@ public class MainGame extends Application {
 		FightCharImpl char2=new FightCharImpl();
 		HitboxImpl hit1 = new HitboxImpl(); 
 		HitboxImpl hit2 = new HitboxImpl();
-
+		
+		
+		
+		
+		
+		
 		player1.init();
 		player2.init();
 	
@@ -86,8 +94,12 @@ public class MainGame extends Application {
 
 		AssetDisplay lifebox1= new AssetDisplay(5,5,100, 20,null,new Image(Files.newInputStream(Paths.get("res/sprites/lifebox.png"))));
 		AssetDisplay lifebox2= new AssetDisplay(largeur-105,5,100, 20,null,new Image(Files.newInputStream(Paths.get("res/sprites/lifebox.png"))));
+		Label jackie = new Label("Jackie");jackie.setTextFill(Color.WHITE);
+		Label elsa = new Label("Elsa",lifebox2);elsa.setTextFill(Color.WHITE);
+		jackie.setTranslateX(5);jackie.setTranslateY(5);
+		elsa.setTranslateX(largeur-105);elsa.setTranslateY(5);
 		
-		group.getChildren().addAll(arene,rec,rec2,rechit,rechit2, rectech1, rectech2, lifebox1, lifebox2);
+		group.getChildren().addAll(arene,rec,rec2,rechit,rechit2, rectech1, rectech2, lifebox1, lifebox2,jackie,elsa);
 
 		Scene scene = new Scene(group, hauteur,largeur);
 		
@@ -100,8 +112,9 @@ public class MainGame extends Application {
 		stage.setTitle("Destroy the bastards");
 		stage.setWidth(largeur);
 		stage.setHeight(hauteur);
-		stage.setResizable(false);
+		//stage.setResizable(false);
 		stage.show();
+		stage.setOnCloseRequest(e->Platform.exit());
 	}
 
 	private void moveRecOnKeyPress(Scene scene) {

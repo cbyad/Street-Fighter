@@ -26,7 +26,7 @@ public class HitboxContract extends HitboxDecorator{
 	public void init (int x,int y, int h, int l){
 		//  h>=0
 		if (h<0)
-			throw new PreConditionError("h>0");
+			throw new PreConditionError("h>=0");
 		//  l>=0
 		if (l<0)
 			throw new PreConditionError("l>=0");

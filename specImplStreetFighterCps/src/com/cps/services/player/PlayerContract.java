@@ -2,6 +2,7 @@ package com.cps.services.player;
 
 import com.cps.exception.PostConditionError;
 import com.cps.services.character.Character;
+import com.cps.services.fightChar.FightChar;
 
 public class PlayerContract extends PlayerDecorator {
 
@@ -17,7 +18,7 @@ public class PlayerContract extends PlayerDecorator {
 		
 	}
 	
-	public void setChar(Character c){
+	public void setChar(FightChar c){
 		
 		super.setChar(c);
 		checkInvariant();

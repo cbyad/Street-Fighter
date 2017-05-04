@@ -50,8 +50,10 @@ public abstract class TechDecorator implements Tech{
 	}
 
 	@Override
-	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int x, int y, int h, int l) {
-		delegate.init(damage, hstun, bstun, sframe, hframe, x, y, h, l);
+	public void init(int damage, int hstun, int bstun, int sframe, int hframe, int rframe, int x, int y, int h, int l) {
+		delegate.init(damage, hstun, bstun, sframe, hframe, rframe, x, y, h, l);
 	}
+
+
 
 }

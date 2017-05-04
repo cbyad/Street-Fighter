@@ -1,16 +1,16 @@
 package com.cps.services.player;
 
-import com.cps.services.character.Character;
+import com.cps.services.fightChar.FightChar;
 
 public class PlayerImplBug implements Player {
 
-	private Character charac;
-	
+	private FightChar charac;
+
 	public PlayerImplBug(){
 	}
-	
+
 	@Override
-	public Character getChar() {
+	public FightChar getChar() {
 		return this.charac;
 	}
 
@@ -20,7 +20,7 @@ public class PlayerImplBug implements Player {
 	}
 
 	@Override
-	public void setChar(Character c) {
-		this.charac=null;
+	public void setChar(FightChar c) {
+		this.charac=c;
 	}
 }
