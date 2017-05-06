@@ -67,5 +67,8 @@ public class EngineImpl implements Engine{
 		//verifier que le deplacement ne depasse pas les limites du jeu
 				this.p1.getChar().step(c1);
 				this.p2.getChar().step(c2);
+				if (getChar(1).dead()||getChar(2).dead()){
+					gameOver=true;
+				}
 	}
 }

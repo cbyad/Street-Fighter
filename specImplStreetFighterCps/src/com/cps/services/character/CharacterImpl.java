@@ -20,6 +20,17 @@ public class CharacterImpl implements Character{
 	protected int hStand;
 	protected int hCrouch;
 	protected int yStand;
+	public String name;
+	
+	@Override
+	public String getName(){
+		return this.name;
+	}
+	
+	@Override
+	public void setName(String name){
+		this.name=name;
+	}
 	
 	public CharacterImpl() {
 	}
@@ -142,10 +153,12 @@ public class CharacterImpl implements Character{
 		this.charBox().MoveTo(this.positionX(), this.positionY());
 	}
 
+	@Override
 	public void switchSide() {
 		this.facing=!this.faceRight();
 	}
 
+	@Override
 	public void crouch(){
 	
 		this.y= this.y-hCrouch+hStand;
@@ -156,6 +169,7 @@ public class CharacterImpl implements Character{
 		this.crouching=true;
 	}
 	
+	@Override
 	public void jump(){
 		this.jumping=true;
 		this.vspeed=this.speed*5;
@@ -267,6 +281,16 @@ public class CharacterImpl implements Character{
 			}
 			
 		}
+	}
+
+	@Override
+	public int hStand() {
+		return hStand;
+	}
+
+	@Override
+	public int hCrouch() {
+		return hCrouch;
 	}
 
 

@@ -26,9 +26,12 @@ public interface Character {
 	public int speed();
 	public boolean faceRight();
 	public boolean dead();
-
+	public int hStand();
+	public int hCrouch();
 	public int getVSpeed();
 	public int getYStand();
+	public String getName();
+	public void setName(String name);
 	/* Constructors */
 	
 	// \pre: init(l,s,f,e,h) requires l > 0 && s > 0
@@ -62,6 +65,10 @@ public interface Character {
 	// \post: positionY() = positionY()@pre
 	// \post: life() = life()@pre
 	public void switchSide();
+	
+	public void crouch();
+	
+	public void jump();
 	
 	// \pre: step(Commande) requires ¬dead()
 	// \post: step(LEFT) = moveLeft()

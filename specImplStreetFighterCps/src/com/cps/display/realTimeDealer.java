@@ -230,6 +230,7 @@ public class realTimeDealer extends Thread {
 						rec.setY(engine.getChar(1).positionY()+79);
 						rec.setHeight(engine.getChar(1).charBox().Height());
 						rec.setWidth(engine.getChar(1).charBox().Length());
+						engine.getChar(1).charBox().MoveTo(engine.getChar(1).positionX()-105, engine.getChar(1).positionY()+79);
 						rectech1.setStrokeWidth(0);
 
 					}
@@ -444,6 +445,7 @@ public class realTimeDealer extends Thread {
 						rec.setHeight(engine.getChar(1).charBox().Height());
 						rec.setWidth(engine.getChar(1).charBox().Length());
 						rectech1.setStrokeWidth(0);
+						engine.getChar(1).charBox().MoveTo(engine.getChar(1).positionX(), engine.getChar(1).positionY()+79);
 
 					}
 					else{
@@ -656,6 +658,7 @@ public class realTimeDealer extends Thread {
 						rec2.setHeight(engine.getChar(2).charBox().Height());
 						rec2.setWidth(engine.getChar(2).charBox().Length());
 						rectech2.setStrokeWidth(0);
+						engine.getChar(2).charBox().MoveTo(engine.getChar(2).positionX(), engine.getChar(2).positionY()+75);
 
 					}
 					else{
@@ -681,29 +684,29 @@ public class realTimeDealer extends Thread {
 						}
 						else {
 							if (this.engine.getChar(2).isTeching()){
-								if (techcycle1[0]>0){
-									if (tech1=="punch"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/punch1_rev.png")))));
-										this.engine.getChar(1).charBox().SetLength(38);
-										this.engine.getChar(1).charBox().SetHeight(64);
-										rec.setX(engine.getChar(1).positionX());
+								if (techcycle2[0]>0){
+									if (tech2=="punch"){
+										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/punch1_rev.png")))));
+										this.engine.getChar(2).charBox().SetLength(38);
+										this.engine.getChar(2).charBox().SetHeight(64);
+										rec2.setX(engine.getChar(2).positionX());
 									}
-									else if (tech1=="kick"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/kick1_rev.png")))));
-										this.engine.getChar(1).charBox().SetLength(67);
-										this.engine.getChar(1).charBox().SetHeight(97);
-										rec.setX(engine.getChar(1).positionX());
+									else if (tech2=="kick"){
+										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/kick1_rev.png")))));
+										this.engine.getChar(2).charBox().SetLength(67);
+										this.engine.getChar(2).charBox().SetHeight(97);
+										rec2.setX(engine.getChar(2).positionX());
 									}
-									else if (tech1=="special"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/special1_rev.png")))));
-										this.engine.getChar(1).charBox().SetLength(57);
-										this.engine.getChar(1).charBox().SetHeight(90);
-										rec.setX(engine.getChar(1).positionX());
+									else if (tech2=="special"){
+										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/special1_rev.png")))));
+										this.engine.getChar(2).charBox().SetLength(57);
+										this.engine.getChar(2).charBox().SetHeight(90);
+										rec2.setX(engine.getChar(2).positionX());
 									}
-									rec.setHeight(engine.getChar(1).charBox().Height());
-									rec.setWidth(engine.getChar(1).charBox().Length());
-									techcycle1[0]--;
-									rectech1.setStrokeWidth(0);
+									rec2.setHeight(engine.getChar(2).charBox().Height());
+									rec2.setWidth(engine.getChar(2).charBox().Length());
+									techcycle2[0]--;
+									rectech2.setStrokeWidth(0);
 								}
 								else {
 									if (techcycle2[1]>0){
@@ -869,6 +872,8 @@ public class realTimeDealer extends Thread {
 						rec2.setHeight(engine.getChar(2).charBox().Height());
 						rec2.setWidth(engine.getChar(2).charBox().Length());
 						rectech2.setStrokeWidth(0);
+						engine.getChar(2).charBox().MoveTo(engine.getChar(2).positionX()-58, engine.getChar(2).positionY()+75);
+
 					}
 					else{
 						if (this.engine.getChar(2).isBlockstunned()){

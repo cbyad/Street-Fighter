@@ -1,5 +1,6 @@
 package com.cps.display;
 
+import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,6 +25,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -65,8 +68,8 @@ public class MainGame extends Application {
 		hit2.init(largeur/2+espacement/2, hauteur-99, 99, 30);
 		TechImpl t=new TechImpl();
 		t.init(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-		char1.init(100, 8, true, engine, hit1, t);
-		char2.init(50, 12, false, engine, hit2, t);
+		char1.init(150, 8, true, engine, hit1, t);
+		char2.init(70, 12, false, engine, hit2, t);
 		
 		char1.setName("jackie");
 		char2.setName("elsa");
@@ -80,7 +83,7 @@ public class MainGame extends Application {
 		ImageView arene =  new ImageView(img);
 
 		Group group = new Group();
-
+		new MediaPlayer(new Media (new File ("res/music/background.mp3").toURI().toString())).play();
 		AssetDisplay rec = new AssetDisplay(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,null,imgRyu);
 		AssetDisplay rec2 = new AssetDisplay(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,imgGuile);
 		AssetDisplay rechit = new AssetDisplay(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,Color.RED,null);
@@ -116,7 +119,7 @@ public class MainGame extends Application {
 		stage.setTitle("Destroy the bastards");
 		stage.setWidth(largeur);
 		stage.setHeight(hauteur);
-		stage.setResizable(false);
+		//stage.setResizable(false);
 		stage.show();
 		stage.setOnCloseRequest(e->Platform.exit());
 	}

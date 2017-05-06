@@ -19,7 +19,37 @@ public interface Tech {
 	public Hitbox getHitBox();
 
 	/*Constructors*/
+	
+	// pre: damage>=0
+	// pre: hstun>=0
+	// pre: bstun>=0
+	// pre: sframe>=0
+	// pre: hframe>=0
+	// pre: rframe>=0
+	// post: damage()=damage
+	// post: hstun()=hstun
+	// post: bstun()=bstun
+	// post: sframe()=sframe
+	// post: hframe()=hframe
+	// post: rframe()=rframe
 	public void init(int damage, int hstun , int bstun , int sframe , int hframe,int rframe);
+	
+	// pre: damage>=0
+	// pre: hstun>=0
+	// pre: bstun>=0
+	// pre: sframe>=0
+	// pre: hframe>=0
+	// pre: rframe>=0
+	// post: damage()=damage
+	// post: hstun()=hstun
+	// post: bstun()=bstun
+	// post: sframe()=sframe
+	// post: hframe()=hframe
+	// post: rframe()=rframe
+	// post: getHitBox().PositionX()=x
+	// post: getHitbox().PositionY()=y
+	// post: getHitbox().Height()=h
+	//post: getHitbox().Length=l
 	public void init(int damage, int hstun , int bstun , int sframe ,
 			int hframe, int rframe, int x, int y, int h , int l);
 }

@@ -17,10 +17,10 @@ public class EngineContract extends EngineDecorator{
 		Character perso1 = getChar(1);
 		Character perso2 =getChar(2);
 		
-		if(!isGameOver() == perso1.dead() ) 
+		if(!isGameOver() && perso1.dead() ) 
 			throw new InvariantError("isGameOver() == Character::isDead(getPlayer(1))");
 
-		if(!isGameOver() == perso2.dead()) 
+		if(!isGameOver()&& perso2.dead()) 
 			throw new InvariantError("isGameOver() == Character::isDead(getPlayer(2))");
 	}
 
