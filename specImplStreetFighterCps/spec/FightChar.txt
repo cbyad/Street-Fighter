@@ -1,0 +1,41 @@
+Service:                FightChar refines Character
+
+Observators:            isBlocking [FightChar] -> bool
+                        isBlockstunned: [FightChar] -> bool
+                        isHitstunned: [FightChar] -> bool
+                        isTeching: [FightChar] ->bool
+                        tech: [FightChar] -> Tech
+                            pre tech(C) requires isTeching(C)
+                        techFrame: [FightChar] -> bool
+                            pre techFrame(C) requires isTeching(C)
+                        techHasAlreadyHit: [FightChar] -> bool
+                            pre techHasAlreadyHit(C) requires isTeching(C)
+
+                        // on récupère les mêmes spécification du service Character mais on ajoute:
+constructors:           init: int x int x bool x [Engine] x [HitBox] x [Tech] -> [FigthChar]
+
+Operators:              startTech: [FightChar] x Tech -> [FightChar]
+                            pre startTech(C,T) requires !isTeching() ^ !isHitstunned() ^ !isBlockStunned()
+
+                        step: [FightChar] x Commande -> [FightChar]
+                            pre: step(c) requires !isHitStunned ^ !isBlockStunned ^ !isTeching
+                            // Specification supplementaire pour step
+Observation:
+              [Invariant]:
+                          isBlocking == !isTeching
+                          isTeching == !isHitstunned ==!isBlockstunned
+
+              [init]:
+                          tech( init(l,s,f,e,h,technique))==technique
+                          !isTeching(init(l,s,f,e,h,technique))
+                          !techFrame(init(l,s,f,e,h,technique))
+                          !techHasAlreadyHit(init(l,s,f,e,h,technique))
+
+              [startTech]:
+                          isTeching(starTech(technique))
+
+              [step]:
+                  // observation supplémentaire pour step
+                  step(c)
+                      if (c=BLOCK) => isBlocking
+                      if (c=PUNCH) => starTech(punch)
