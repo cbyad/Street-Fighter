@@ -1,6 +1,5 @@
 package com.cps.services.engine;
 
-import com.cps.services.character.Character;
 import com.cps.services.fightChar.FightChar;
 import com.cps.services.player.Player;
 

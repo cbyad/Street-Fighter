@@ -31,6 +31,9 @@ public interface FightChar /*refine*/ extends Character{
 	/*Constructor*/
 	// on recupere les meme specification de character mais on ajoute:
 	// \post tech()==tech
+    // !isTeching()
+    // !techFrame()
+    // !techHasAlreadyHit()
 	public void init (int l, int s, boolean f, Engine e, Hitbox h,Tech tech);
 	
 	

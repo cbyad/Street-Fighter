@@ -9,7 +9,7 @@ import com.cps.services.engine.Engine;
 import com.cps.services.hitbox.Hitbox;
 import com.cps.services.tech.Tech;
 
-public class FightCharContract extends CharacterContract implements FightChar{ // pas sur 
+public class FightCharContract extends CharacterContract implements FightChar{ 
 
 	public FightCharContract(FightChar delagate) {
 		super(delagate);
@@ -175,7 +175,9 @@ public class FightCharContract extends CharacterContract implements FightChar{ /
 		checkInvariant();
 		
 		if(!(tech()==tech)) throw new PostConditionError("tech()==tech");
-		
+		if(isTeching()) throw new PostConditionError("!isTeching()");
+        if(techFrame()) throw new PostConditionError("!techFrame()");
+        if(techHasAlreadyHit()) throw new PostConditionError("!techHasAlreadyHit()");		
 	}
 
 }

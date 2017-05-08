@@ -1,6 +1,5 @@
 package com.cps.services.player;
 
-import com.cps.services.character.Character;
 import com.cps.services.fightChar.FightChar;
 
 public interface Player {

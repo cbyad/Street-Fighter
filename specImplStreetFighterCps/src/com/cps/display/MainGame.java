@@ -83,7 +83,6 @@ public class MainGame extends Application {
 		ImageView arene =  new ImageView(img);
 
 		Group group = new Group();
-		new MediaPlayer(new Media (new File ("res/music/background.mp3").toURI().toString())).play();
 		AssetDisplay rec = new AssetDisplay(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,null,imgRyu);
 		AssetDisplay rec2 = new AssetDisplay(player2.getChar().charBox().PositionX(), player2.getChar().charBox().PositionY(),player2.getChar().charBox().Length(), player2.getChar().charBox().Height() ,null,imgGuile);
 		AssetDisplay rechit = new AssetDisplay(player1.getChar().charBox().PositionX(), player1.getChar().charBox().PositionY(),player1.getChar().charBox().Length(), player1.getChar().charBox().Height() ,Color.RED,null);
@@ -104,7 +103,7 @@ public class MainGame extends Application {
 		Scene scene = new Scene(group, hauteur,largeur);
 		
 		this.rt=new realTimeDealer(rec, rec2, rechit, rechit2, rectech1, rectech2, lifebox1, lifebox2, scene, engine);
-		rt.start();
+	
 		//rec, rec2, echit, rechit2, rectech1, rectech2, lifebox1, lifebox2,  scene, engine
 		moveRecOnKeyPress(scene);
 		
@@ -113,6 +112,10 @@ public class MainGame extends Application {
 //		c.init(hauteur, largeur, espacement, engine.getPlayer(1), engine.getPlayer(2));
 //		FightCharContract c = new FightCharContract(char1);
 //		c.checkInvariant();
+		
+		Media sound = new Media(new File("res/music/got.mp3").toURI().toString());
+		MediaPlayer mp = new MediaPlayer(sound);
+		mp.play();
 		
 		
 		stage.setScene(scene);
@@ -305,10 +308,7 @@ public class MainGame extends Application {
 				break;
 			}
 			
-			
-				
-	
-		
+
 	});
 		
 	}

@@ -15,8 +15,8 @@ public class AssetDisplay extends Rectangle {
 	public AssetDisplay(int x ,int y , int w ,int h,Paint color, Image sprite) {
 		super(x,y,w,h);
 		if (color!=null){
-			this.setStroke(color); // mettre en commentaire pour ne pas voir contour du rectangle
-			this.setStrokeWidth(2);
+			//this.setStroke(color); // mettre en commentaire pour ne pas voir contour du rectangle
+			//this.setStrokeWidth(2);
 		}
 		
 		if (sprite!=null){

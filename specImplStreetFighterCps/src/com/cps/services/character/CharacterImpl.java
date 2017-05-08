@@ -245,7 +245,7 @@ public class CharacterImpl implements Character{
 				
 			
 		if (c==Commande.NEUTRAL){
-				
+			// on ne fait rien 
 		}
 		else{
 			for (int i=0;i<2;i++){

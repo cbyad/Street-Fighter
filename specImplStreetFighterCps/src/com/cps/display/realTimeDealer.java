@@ -1,10 +1,10 @@
 package com.cps.display;
 
-import java.io.InputStream;
+import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import com.cps.services.engine.EngineImpl;
 import com.cps.services.engine.Commande;
 import com.cps.services.engine.Engine;
 
@@ -13,32 +13,18 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
+
 public class realTimeDealer extends Thread {
 
-	public boolean p1left;
-	public boolean p2left;
-	public boolean p1right;
-	public boolean p2right;
-	public boolean p1jump;
-	public boolean p2jump;
-	public boolean p1crouch;
-	public boolean p2crouch;
-	public boolean p1block;
-	public boolean p2block;
-	public boolean p1tech1;
-	public boolean p2tech1;
-	public boolean p1tech2;
-	public boolean p2tech2;
-	public boolean p1tech3;
-	public boolean p2tech3;
-	public AssetDisplay rec;
-	public AssetDisplay rec2;
-	public AssetDisplay rechit;
-	public AssetDisplay rechit2;
-	public AssetDisplay rectech1;
-	public AssetDisplay rectech2;
-	public AssetDisplay lifebox1;
-	public AssetDisplay lifebox2;
+	public boolean p1left,p2left,p1right,p2right;
+	public boolean p1jump,p2jump,p1crouch,p2crouch;
+	public boolean p1block,p2block,p1tech1,p2tech1;
+	public boolean p1tech2,p2tech2,p1tech3,p2tech3;
+
+	public AssetDisplay rec,rec2,rechit,rechit2;
+	public AssetDisplay rectech1,rectech2;
+
+	public AssetDisplay lifebox1,lifebox2;
 	public Scene scene;
 	public Engine engine;
 
@@ -50,6 +36,33 @@ public class realTimeDealer extends Thread {
 
 	private String tech1;
 	private String tech2;
+	
+	private boolean exit=false;
+
+	private ImagePattern dead_jackie,blockstunned_jackie
+	,hitstunned_jackie,punching1_jackie,kick1_jackie,special1_jackie,
+	special2_jackie,punching2_jackie,kick2_jackie,special3_jackie,punching3_jackie,
+	idle_jackie,jump1_jackie,jump2_jackie,walk1_jackie,crouching_jackie,kick3_jackie,
+	blocking_jackie,walk2_jackie;
+
+	private ImagePattern dead_elsa,blockstunned_elsa
+	,hitstunned_elsa,punch1_elsa,kick1_elsa,special1_elsa,
+	special2_elsa,punch2_elsa,kick2_elsa,special3_elsa,punch3_elsa,
+	idle_elsa,jumping1_elsa,jumping2_elsa,walk1_elsa,crouching_elsa,kick3_elsa,
+	blocking_elsa,walk2_elsa;
+
+	private ImagePattern dead_rev_jackie,blockstunned_rev_jackie
+	,hitstunned_rev_jackie,punching1_rev_jackie,kick1_rev_jackie,special1_rev_jackie,
+	special2_rev_jackie,punching2_rev_jackie,kick2_rev_jackie,special3_rev_jackie,punching3_rev_jackie,
+	idle_rev_jackie,jump1_rev_jackie,jump2_rev_jackie,walk1_rev_jackie,crouching_rev_jackie
+	,kick3_rev_jackie,blocking_rev_jackie,walk2_rev_jackie;
+
+	private ImagePattern dead_rev_elsa,blockstunned_rev_elsa
+	,hitstunned_rev_elsa,punch1_rev_elsa,kick1_rev_elsa,special1_rev_elsa,
+	special2_rev_elsa,punch2_rev_elsa,kick2_rev_elsa,special3_rev_elsa,punch3_rev_elsa,
+	idle_rev_elsa,jumping1_rev_elsa,jumping2_rev_elsa,walk1_rev_elsa,crouching_rev_elsa
+	,kick3_rev_elsa,blocking_rev_elsa,walk2_rev_elsa;
+
 
 	public realTimeDealer(AssetDisplay rec, AssetDisplay rec2, AssetDisplay rechit,
 			AssetDisplay rechit2, AssetDisplay rectech1, AssetDisplay rectech2, 
@@ -85,10 +98,177 @@ public class realTimeDealer extends Thread {
 		this.rectech2=rectech2;
 		this.lifebox1=lifebox1;
 		this.lifebox2=lifebox2;
+
+
+		//initialisation des sprites 
+		try {
+			/*jackie*/
+			dead_jackie = new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/dead.png"))));
+			blockstunned_jackie= new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/blockstunned.png"))));
+			hitstunned_jackie = new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/hitstunned.png"))));
+			punching1_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/punching1.png"))));
+			kick1_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/kick1.png"))));
+			special1_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/special1.png"))));
+			punching2_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/punching2.png"))));
+			kick2_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/kick2.png"))));
+			special2_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/special2.png"))));
+			special3_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/special3.png"))));
+			punching3_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/punching3.png"))));
+			idle_jackie =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/idle.png"))));
+			jump1_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/jump1.png"))));
+			jump2_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/jump2.png"))));
+			walk1_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/walk1.png"))));
+			walk2_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/walk2.png"))));
+			kick3_jackie  =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/kick3.png"))));
+			blocking_jackie =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/blocking.png"))));
+			crouching_jackie =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/crouching.png"))));
+			/*jackie_rev*/
+			dead_rev_jackie = new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/dead_rev.png"))));
+			blockstunned_rev_jackie= new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/blockstunned_rev.png"))));
+			hitstunned_rev_jackie = new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/hitstunned_rev.png"))));
+			punching1_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/punching1_rev.png"))));
+			kick1_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/kick1_rev.png"))));
+			special1_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/special1_rev.png"))));
+			punching2_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/punching2_rev.png"))));
+			kick2_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/kick2_rev.png"))));
+			special2_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/special2_rev.png"))));
+			special3_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/special3_rev.png"))));
+			punching3_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/punching3_rev.png"))));
+			idle_rev_jackie =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/idle_rev.png"))));
+			jump1_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/jump1_rev.png"))));
+			jump2_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/jump2_rev.png"))));
+			walk1_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/walk1_rev.png"))));
+			walk2_rev_jackie=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/walk2_rev.png"))));
+			kick3_rev_jackie  =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/kick3_rev.png"))));
+			blocking_rev_jackie =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/blocking_rev.png"))));
+			crouching_rev_jackie =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/jackie/crouching_rev.png"))));
+
+			/*elsa*/
+			dead_elsa = new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/dead.png"))));
+			blockstunned_elsa= new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/blockstunned.png"))));
+			hitstunned_elsa = new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/hitstunned.png"))));
+			punch1_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/punch1.png"))));
+			kick1_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/kick1.png"))));
+			special1_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/special1.png"))));
+			punch2_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/punch2.png"))));
+			kick2_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/kick2.png"))));
+			special2_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/special2.png"))));
+			special3_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/special3.png"))));
+			punch3_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/punch3.png"))));
+			idle_elsa =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/idle.png"))));
+			jumping1_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/jumping1.png"))));
+			jumping2_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/jumping2.png"))));
+			walk1_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/walk1.png"))));
+			walk2_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/walk2.png"))));
+			kick3_elsa  =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/kick3.png"))));
+			blocking_elsa =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/blocking.png"))));
+			crouching_elsa =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/crouching.png"))));
+
+
+			/*elsa_rev*/
+			dead_rev_elsa = new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/dead_rev.png"))));
+			blockstunned_rev_elsa= new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/blockstunned_rev.png"))));
+			hitstunned_rev_elsa = new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/hitstunned_rev.png"))));
+			punch1_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/punch1_rev.png"))));
+			kick1_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/kick1_rev.png"))));
+			special1_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/special1_rev.png"))));
+			punch2_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/punch2_rev.png"))));
+			kick2_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/kick2_rev.png"))));
+			special2_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/special2_rev.png"))));
+			special3_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/special3_rev.png"))));
+			punch3_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/punch3_rev.png"))));
+			idle_rev_elsa =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/idle_rev.png"))));
+			jumping1_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/jumping1_rev.png"))));
+			jumping2_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/jumping2_rev.png"))));
+			walk1_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/walk1_rev.png"))));
+			walk2_rev_elsa=new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/walk2_rev.png"))));
+			kick3_rev_elsa  =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/kick3_rev.png"))));
+			blocking_rev_elsa =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/blocking_rev.png"))));
+			crouching_rev_elsa =new ImagePattern(new Image(Files.newInputStream(
+					Paths.get("res/sprites/elsa/crouching_rev.png"))));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.start();
 	}
 
 	public void run(){
-		while(true){
+		while(!exit){
 			Commande c1=Commande.NEUTRAL;
 			Commande c2=Commande.NEUTRAL;
 
@@ -223,7 +403,7 @@ public class realTimeDealer extends Thread {
 
 				if (engine.getChar(1).faceRight()){
 					if (engine.getChar(1).dead()){
-						rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/dead.png")))));
+						rec.setFill(dead_jackie);
 						this.engine.getChar(1).charBox().SetLength(123);
 						this.engine.getChar(1).charBox().SetHeight(35);
 						rec.setX(engine.getChar(1).positionX()-105);
@@ -232,11 +412,12 @@ public class realTimeDealer extends Thread {
 						rec.setWidth(engine.getChar(1).charBox().Length());
 						engine.getChar(1).charBox().MoveTo(engine.getChar(1).positionX()-105, engine.getChar(1).positionY()+79);
 						rectech1.setStrokeWidth(0);
-
+						
+						exit=true;
 					}
 					else{
 						if (this.engine.getChar(1).isBlockstunned()){
-							rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/blockstunned.png")))));
+							rec.setFill(blockstunned_jackie);
 							this.engine.getChar(1).charBox().SetLength(64);
 							this.engine.getChar(1).charBox().SetHeight(103);
 							rec.setX(engine.getChar(1).positionX());
@@ -246,7 +427,7 @@ public class realTimeDealer extends Thread {
 							rectech1.setStrokeWidth(0);
 						}
 						else if (this.engine.getChar(1).isHitstunned()){
-							rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/hitstunned.png")))));
+							rec.setFill(hitstunned_jackie);
 							this.engine.getChar(1).charBox().SetLength(77);
 							this.engine.getChar(1).charBox().SetHeight(100);
 							rec.setX(engine.getChar(1).positionX());
@@ -259,19 +440,19 @@ public class realTimeDealer extends Thread {
 							if (this.engine.getChar(1).isTeching()){
 								if (techcycle1[0]>0){
 									if (tech1=="punch"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/punching1.png")))));
+										rec.setFill(punching1_jackie);
 										this.engine.getChar(1).charBox().SetLength(68);
 										this.engine.getChar(1).charBox().SetHeight(100);
 										rec.setX(engine.getChar(1).positionX());
 									}
 									else if (tech1=="kick"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/kick1.png")))));
+										rec.setFill(kick1_jackie);
 										this.engine.getChar(1).charBox().SetLength(46);
 										this.engine.getChar(1).charBox().SetHeight(107);
 										rec.setX(engine.getChar(1).positionX());
 									}
 									else if (tech1=="special"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/special1.png")))));
+										rec.setFill(special1_jackie);
 										this.engine.getChar(1).charBox().SetLength(50);
 										this.engine.getChar(1).charBox().SetHeight(101);
 										rec.setX(engine.getChar(1).positionX());
@@ -284,7 +465,7 @@ public class realTimeDealer extends Thread {
 								else {
 									if (techcycle1[1]>0){
 										if (tech1=="punch"){
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/punching2.png")))));
+											rec.setFill(punching2_jackie);
 											this.engine.getChar(1).charBox().SetLength(68);
 											this.engine.getChar(1).charBox().SetHeight(97);
 											rec.setX(engine.getChar(1).positionX());
@@ -294,7 +475,7 @@ public class realTimeDealer extends Thread {
 										}
 
 										else if (tech1=="kick"){
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/kick2.png")))));
+											rec.setFill(kick2_jackie);
 											this.engine.getChar(1).charBox().SetLength(47);
 											this.engine.getChar(1).charBox().SetHeight(111);
 											rec.setX(engine.getChar(1).positionX());
@@ -303,7 +484,7 @@ public class realTimeDealer extends Thread {
 											rec.setWidth(111);
 										}
 										else if (tech1=="special"){
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/special2.png")))));
+											rec.setFill(special2_jackie);
 											this.engine.getChar(1).charBox().SetLength(51);
 											this.engine.getChar(1).charBox().SetHeight(106);
 											rec.setX(engine.getChar(1).positionX());
@@ -322,19 +503,19 @@ public class realTimeDealer extends Thread {
 									else {
 										if (techcycle1[2]>0){
 											if (tech1=="punch"){
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/punching3.png")))));
+												rec.setFill(punching3_jackie);
 												this.engine.getChar(1).charBox().SetLength(65);
 												this.engine.getChar(1).charBox().SetHeight(107);
 												rec.setX(engine.getChar(1).positionX());
 											}
 											else if (tech1=="kick"){
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/kick3.png")))));
+												rec.setFill(kick3_jackie);
 												this.engine.getChar(1).charBox().SetLength(77);
 												this.engine.getChar(1).charBox().SetHeight(103);
 												rec.setX(engine.getChar(1).positionX());
 											}
 											else if (tech1=="special"){
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/special3.png")))));
+												rec.setFill(special3_jackie);
 												this.engine.getChar(1).charBox().SetLength(65);
 												this.engine.getChar(1).charBox().SetHeight(125);
 												rec.setX(engine.getChar(1).positionX());
@@ -349,7 +530,7 @@ public class realTimeDealer extends Thread {
 							}
 							else {
 								if (this.engine.getChar(1).isBlocking()){
-									rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/blocking.png")))));
+									rec.setFill(blocking_jackie);
 									this.engine.getChar(1).charBox().SetLength(57);
 									this.engine.getChar(1).charBox().SetHeight(107);
 									rec.setX(engine.getChar(1).positionX());
@@ -362,7 +543,7 @@ public class realTimeDealer extends Thread {
 								else {
 
 									if (this.engine.getChar(1).getVSpeed()>0){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/jump1.png")))));
+										rec.setFill(jump1_jackie);
 										this.engine.getChar(1).charBox().SetLength(41);
 										this.engine.getChar(1).charBox().SetHeight(140);
 										rec.setX(engine.getChar(1).positionX());
@@ -372,7 +553,7 @@ public class realTimeDealer extends Thread {
 										rectech1.setStrokeWidth(0);
 									}
 									else if (this.engine.getChar(1).getVSpeed()<0){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/jump2.png")))));
+										rec.setFill(jump2_jackie);
 										this.engine.getChar(1).charBox().SetLength(42);
 										this.engine.getChar(1).charBox().SetHeight(115);	
 										rec.setX(engine.getChar(1).positionX());
@@ -385,7 +566,7 @@ public class realTimeDealer extends Thread {
 									else{
 										if (c1==Commande.NEUTRAL){
 											wcycle1=0;
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/idle.png")))));
+											rec.setFill(idle_jackie);
 											this.engine.getChar(1).charBox().SetLength(30);
 											this.engine.getChar(1).charBox().SetHeight(114);
 											rec.setX(engine.getChar(1).positionX());
@@ -397,7 +578,7 @@ public class realTimeDealer extends Thread {
 										}
 										if ((c1==Commande.LEFT)||(c1==Commande.RIGHT)){
 											if ((wcycle1%12)<6){
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/walk1.png")))));
+												rec.setFill(walk1_jackie);
 												this.engine.getChar(1).charBox().SetLength(48);
 												this.engine.getChar(1).charBox().SetHeight(114);
 												rec.setX(engine.getChar(1).positionX());
@@ -407,7 +588,7 @@ public class realTimeDealer extends Thread {
 												rectech1.setStrokeWidth(0);
 											}	
 											else{
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/walk2.png")))));
+												rec.setFill(walk2_jackie);
 												this.engine.getChar(1).charBox().SetLength(48);
 												this.engine.getChar(1).charBox().SetHeight(114);
 												rec.setX(engine.getChar(1).positionX());
@@ -419,7 +600,7 @@ public class realTimeDealer extends Thread {
 										}
 
 										if (c1==Commande.CROUCH){
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/crouching.png")))));
+											rec.setFill(crouching_jackie);
 											this.engine.getChar(1).charBox().SetLength(61);
 											this.engine.getChar(1).charBox().SetHeight(78);
 											rec.setX(engine.getChar(1).positionX());
@@ -437,7 +618,7 @@ public class realTimeDealer extends Thread {
 				}
 				else {
 					if (engine.getChar(1).dead()){
-						rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/dead_rev.png")))));
+						rec.setFill(dead_rev_jackie);
 						this.engine.getChar(1).charBox().SetLength(123);
 						this.engine.getChar(1).charBox().SetHeight(35);
 						rec.setX(engine.getChar(1).positionX());
@@ -446,11 +627,12 @@ public class realTimeDealer extends Thread {
 						rec.setWidth(engine.getChar(1).charBox().Length());
 						rectech1.setStrokeWidth(0);
 						engine.getChar(1).charBox().MoveTo(engine.getChar(1).positionX(), engine.getChar(1).positionY()+79);
-
+						
+						exit=true;
 					}
 					else{
 						if (this.engine.getChar(1).isBlockstunned()){
-							rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/blockstunned_rev.png")))));
+							rec.setFill(blockstunned_rev_jackie);
 							this.engine.getChar(1).charBox().SetLength(64);
 							this.engine.getChar(1).charBox().SetHeight(103);
 							rec.setX(engine.getChar(1).positionX());
@@ -460,7 +642,7 @@ public class realTimeDealer extends Thread {
 							rectech1.setStrokeWidth(0);
 						}
 						else if (this.engine.getChar(1).isHitstunned()){
-							rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/hitstunned_rev.png")))));
+							rec.setFill(hitstunned_rev_jackie);
 							this.engine.getChar(1).charBox().SetLength(77);
 							this.engine.getChar(1).charBox().SetHeight(100);
 							rec.setX(engine.getChar(1).positionX());
@@ -473,19 +655,19 @@ public class realTimeDealer extends Thread {
 							if (this.engine.getChar(1).isTeching()){
 								if (techcycle1[0]>0){
 									if (tech1=="punch"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/punching1_rev.png")))));
+										rec.setFill(punching1_rev_jackie);
 										this.engine.getChar(1).charBox().SetLength(68);
 										this.engine.getChar(1).charBox().SetHeight(100);
 										rec.setX(engine.getChar(1).positionX());
 									}
 									else if (tech1=="kick"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/kick1_rev.png")))));
+										rec.setFill(kick1_rev_jackie);
 										this.engine.getChar(1).charBox().SetLength(46);
 										this.engine.getChar(1).charBox().SetHeight(107);
 										rec.setX(engine.getChar(1).positionX());
 									}
 									else if (tech1=="special"){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/special1_rev.png")))));
+										rec.setFill(special1_rev_jackie);
 										this.engine.getChar(1).charBox().SetLength(50);
 										this.engine.getChar(1).charBox().SetHeight(101);
 										rec.setX(engine.getChar(1).positionX());
@@ -498,7 +680,7 @@ public class realTimeDealer extends Thread {
 								else {
 									if (techcycle1[1]>0){
 										if (tech1=="punch"){
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/punching2_rev.png")))));
+											rec.setFill(punching2_rev_jackie);
 											this.engine.getChar(1).charBox().SetLength(68);
 											this.engine.getChar(1).charBox().SetHeight(97);
 											rec.setX(engine.getChar(1).positionX()-39);
@@ -508,7 +690,7 @@ public class realTimeDealer extends Thread {
 										}
 
 										else if (tech1=="kick"){
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/kick2_rev.png")))));
+											rec.setFill(kick2_rev_jackie);
 											this.engine.getChar(1).charBox().SetLength(47);
 											this.engine.getChar(1).charBox().SetHeight(111);
 											rec.setX(engine.getChar(1).positionX()-44);
@@ -517,7 +699,7 @@ public class realTimeDealer extends Thread {
 											rec.setWidth(111);
 										}
 										else if (tech1=="special"){
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/special2_rev.png")))));
+											rec.setFill(special2_rev_jackie);
 											this.engine.getChar(1).charBox().SetLength(51);
 											this.engine.getChar(1).charBox().SetHeight(105);
 											rec.setX(engine.getChar(1).positionX()-19);
@@ -536,19 +718,19 @@ public class realTimeDealer extends Thread {
 									else {
 										if (techcycle1[2]>0){
 											if (tech1=="punch"){
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/punching3_rev.png")))));
+												rec.setFill(punching3_rev_jackie);
 												this.engine.getChar(1).charBox().SetLength(65);
 												this.engine.getChar(1).charBox().SetHeight(107);
 												rec.setX(engine.getChar(1).positionX());
 											}
 											else if (tech1=="kick"){
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/kick3_rev.png")))));
+												rec.setFill(kick3_rev_jackie);
 												this.engine.getChar(1).charBox().SetLength(77);
 												this.engine.getChar(1).charBox().SetHeight(103);
 												rec.setX(engine.getChar(1).positionX());
 											}
 											else if (tech1=="special"){
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/special3_rev.png")))));
+												rec.setFill(special3_rev_jackie);
 												this.engine.getChar(1).charBox().SetLength(65);
 												this.engine.getChar(1).charBox().SetHeight(125);
 												rec.setX(engine.getChar(1).positionX());
@@ -564,7 +746,7 @@ public class realTimeDealer extends Thread {
 							}
 							else {
 								if (this.engine.getChar(1).isBlocking()){
-									rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/blocking_rev.png")))));
+									rec.setFill(blocking_rev_jackie);
 									this.engine.getChar(1).charBox().SetLength(57);
 									this.engine.getChar(1).charBox().SetHeight(107);
 									rec.setX(engine.getChar(1).positionX());
@@ -575,7 +757,7 @@ public class realTimeDealer extends Thread {
 								}
 								else {
 									if (this.engine.getChar(1).getVSpeed()>0){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/jump1_rev.png")))));
+										rec.setFill(jump1_rev_jackie);
 										this.engine.getChar(1).charBox().SetLength(41);
 										this.engine.getChar(1).charBox().SetHeight(140);
 										rec.setX(engine.getChar(1).positionX());
@@ -585,7 +767,7 @@ public class realTimeDealer extends Thread {
 										rectech1.setStrokeWidth(0);
 									}
 									else if (this.engine.getChar(1).getVSpeed()<0){
-										rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/jump2_rev.png")))));
+										rec.setFill(jump2_rev_jackie);
 										this.engine.getChar(1).charBox().SetLength(42);
 										this.engine.getChar(1).charBox().SetHeight(115);
 										rec.setX(engine.getChar(1).positionX());
@@ -598,7 +780,7 @@ public class realTimeDealer extends Thread {
 									else{
 										if (c1==Commande.NEUTRAL){
 											wcycle1=0;
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/idle_rev.png")))));
+											rec.setFill(idle_rev_jackie);
 											this.engine.getChar(1).charBox().SetLength(30);
 											this.engine.getChar(1).charBox().SetHeight(114);
 											rec.setX(engine.getChar(1).positionX());
@@ -610,7 +792,7 @@ public class realTimeDealer extends Thread {
 										}
 										if ((c1==Commande.LEFT)||(c1==Commande.RIGHT)){
 											if ((wcycle1%12)<6){
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/walk1_rev.png")))));
+												rec.setFill(walk1_rev_jackie);
 												this.engine.getChar(1).charBox().SetLength(48);
 												this.engine.getChar(1).charBox().SetHeight(114);
 												rec.setX(engine.getChar(1).positionX());
@@ -620,7 +802,7 @@ public class realTimeDealer extends Thread {
 												rectech1.setStrokeWidth(0);
 											}	
 											else{
-												rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/walk2_rev.png")))));
+												rec.setFill(walk2_rev_jackie);
 												this.engine.getChar(1).charBox().SetLength(48);
 												this.engine.getChar(1).charBox().SetHeight(114);
 												rec.setX(engine.getChar(1).positionX());
@@ -631,7 +813,7 @@ public class realTimeDealer extends Thread {
 											}
 										}
 										if (c1==Commande.CROUCH){
-											rec.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/jackie/crouching_rev.png")))));
+											rec.setFill(crouching_rev_jackie);
 											this.engine.getChar(1).charBox().SetLength(61);
 											this.engine.getChar(1).charBox().SetHeight(78);
 											rec.setX(engine.getChar(1).positionX());
@@ -650,7 +832,7 @@ public class realTimeDealer extends Thread {
 
 				if (!engine.getChar(2).faceRight()){
 					if (engine.getChar(2).dead()){
-						rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/dead_rev.png")))));
+						rec2.setFill(dead_rev_elsa);
 						this.engine.getChar(2).charBox().SetLength(104);
 						this.engine.getChar(2).charBox().SetHeight(24);
 						rec2.setX(engine.getChar(2).positionX());
@@ -659,11 +841,11 @@ public class realTimeDealer extends Thread {
 						rec2.setWidth(engine.getChar(2).charBox().Length());
 						rectech2.setStrokeWidth(0);
 						engine.getChar(2).charBox().MoveTo(engine.getChar(2).positionX(), engine.getChar(2).positionY()+75);
-
+						exit=true;
 					}
 					else{
 						if (this.engine.getChar(2).isBlockstunned()){
-							rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/blockstunned_rev.png")))));
+							rec2.setFill(blockstunned_rev_elsa);
 							this.engine.getChar(2).charBox().SetLength(53);
 							this.engine.getChar(2).charBox().SetHeight(99);
 							rec2.setX(engine.getChar(2).positionX());
@@ -673,7 +855,7 @@ public class realTimeDealer extends Thread {
 							rectech2.setStrokeWidth(0);
 						}
 						else if (this.engine.getChar(2).isHitstunned()){
-							rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/hitstunned_rev.png")))));
+							rec2.setFill(hitstunned_rev_elsa);
 							this.engine.getChar(2).charBox().SetLength(52);
 							this.engine.getChar(2).charBox().SetHeight(75);
 							rec2.setX(engine.getChar(2).positionX());
@@ -686,19 +868,19 @@ public class realTimeDealer extends Thread {
 							if (this.engine.getChar(2).isTeching()){
 								if (techcycle2[0]>0){
 									if (tech2=="punch"){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/punch1_rev.png")))));
+										rec2.setFill(punch1_rev_elsa);
 										this.engine.getChar(2).charBox().SetLength(38);
 										this.engine.getChar(2).charBox().SetHeight(64);
 										rec2.setX(engine.getChar(2).positionX());
 									}
 									else if (tech2=="kick"){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/kick1_rev.png")))));
+										rec2.setFill(kick1_rev_elsa);
 										this.engine.getChar(2).charBox().SetLength(67);
 										this.engine.getChar(2).charBox().SetHeight(97);
 										rec2.setX(engine.getChar(2).positionX());
 									}
 									else if (tech2=="special"){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/special1_rev.png")))));
+										rec2.setFill(special1_rev_elsa);
 										this.engine.getChar(2).charBox().SetLength(57);
 										this.engine.getChar(2).charBox().SetHeight(90);
 										rec2.setX(engine.getChar(2).positionX());
@@ -711,7 +893,7 @@ public class realTimeDealer extends Thread {
 								else {
 									if (techcycle2[1]>0){
 										if (tech2=="punch"){
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/punch2_rev.png")))));
+											rec2.setFill(punch2_rev_elsa);
 											this.engine.getChar(2).charBox().SetLength(33);
 											this.engine.getChar(2).charBox().SetHeight(61);
 											rec2.setX(engine.getChar(2).positionX()-29);
@@ -721,7 +903,7 @@ public class realTimeDealer extends Thread {
 										}
 
 										else if (tech2=="kick"){
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/kick2_rev.png")))));
+											rec2.setFill(kick2_rev_elsa);
 											this.engine.getChar(2).charBox().SetLength(46);
 											this.engine.getChar(2).charBox().SetHeight(90);
 											rec2.setX(engine.getChar(2).positionX()-45);
@@ -730,7 +912,7 @@ public class realTimeDealer extends Thread {
 											rec2.setWidth(92);
 										}
 										else if (tech2=="special"){
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/special2_rev.png")))));
+											rec2.setFill(special2_rev_elsa);
 											this.engine.getChar(2).charBox().SetLength(43);
 											this.engine.getChar(2).charBox().SetHeight(97);
 											rec2.setX(engine.getChar(2).positionX()-55);
@@ -749,19 +931,19 @@ public class realTimeDealer extends Thread {
 									else {
 										if (techcycle2[2]>0){
 											if (tech2=="punch"){
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/punch3_rev.png")))));
+												rec2.setFill(punch3_rev_elsa);
 												this.engine.getChar(2).charBox().SetLength(38);
 												this.engine.getChar(2).charBox().SetHeight(64);
 												rec2.setX(engine.getChar(2).positionX());
 											}
 											else if (tech2=="kick"){
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/kick3_rev.png")))));
+												rec2.setFill(kick3_rev_elsa);
 												this.engine.getChar(2).charBox().SetLength(34);
 												this.engine.getChar(2).charBox().SetHeight(98);
 												rec2.setX(engine.getChar(2).positionX());
 											}
 											else if (tech2=="special"){
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/special3_rev.png")))));
+												rec2.setFill(special3_rev_elsa);
 												this.engine.getChar(2).charBox().SetLength(70);
 												this.engine.getChar(2).charBox().SetHeight(91);
 												rec2.setX(engine.getChar(2).positionX());
@@ -777,7 +959,7 @@ public class realTimeDealer extends Thread {
 
 							else {
 								if (this.engine.getChar(2).isBlocking()){
-									rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/blocking_rev.png")))));
+									rec2.setFill(blocking_rev_elsa);
 									this.engine.getChar(2).charBox().SetLength(64);
 									this.engine.getChar(2).charBox().SetHeight(99);
 									rec2.setX(engine.getChar(2).positionX());
@@ -788,7 +970,7 @@ public class realTimeDealer extends Thread {
 								}
 								else {
 									if (this.engine.getChar(2).getVSpeed()>0){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/jumping1_rev.png")))));
+										rec2.setFill(jumping1_rev_elsa);
 										this.engine.getChar(2).charBox().SetLength(47);
 										this.engine.getChar(2).charBox().SetHeight(76);
 										rec2.setX(engine.getChar(2).positionX());
@@ -798,7 +980,7 @@ public class realTimeDealer extends Thread {
 										rectech2.setStrokeWidth(0);
 									}
 									else if (this.engine.getChar(2).getVSpeed()<0){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/jumping2_rev.png")))));
+										rec2.setFill(jumping2_rev_elsa);
 										this.engine.getChar(2).charBox().SetLength(76);
 										this.engine.getChar(2).charBox().SetHeight(115);
 										rec2.setX(engine.getChar(2).positionX());
@@ -811,7 +993,7 @@ public class realTimeDealer extends Thread {
 									else{
 										if (c2==Commande.NEUTRAL){
 											wcycle2=0;
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/idle_rev.png")))));
+											rec2.setFill(idle_rev_elsa);
 											this.engine.getChar(2).charBox().SetLength(46);
 											this.engine.getChar(2).charBox().SetHeight(99);
 											rec2.setX(engine.getChar(2).positionX());
@@ -822,7 +1004,7 @@ public class realTimeDealer extends Thread {
 										}
 										if ((c2==Commande.LEFT)||(c2==Commande.RIGHT)){
 											if ((wcycle2%12)<6){
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/walk1_rev.png")))));
+												rec2.setFill(walk1_rev_elsa);
 												this.engine.getChar(2).charBox().SetLength(59);
 												this.engine.getChar(2).charBox().SetHeight(99);
 												rec2.setX(engine.getChar(2).positionX());
@@ -832,7 +1014,7 @@ public class realTimeDealer extends Thread {
 												rectech2.setStrokeWidth(0);
 											}	
 											else{
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/walk2_rev.png")))));
+												rec2.setFill(walk2_rev_elsa);
 												this.engine.getChar(2).charBox().SetLength(58);
 												this.engine.getChar(2).charBox().SetHeight(99);
 												rec2.setX(engine.getChar(2).positionX());
@@ -844,7 +1026,7 @@ public class realTimeDealer extends Thread {
 										}
 
 										if (c2==Commande.CROUCH){
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/crouching_rev.png")))));
+											rec2.setFill(crouching_rev_elsa);
 											this.engine.getChar(2).charBox().SetLength(38);
 											this.engine.getChar(2).charBox().SetHeight(64);
 											rec2.setX(engine.getChar(2).positionX());
@@ -864,7 +1046,7 @@ public class realTimeDealer extends Thread {
 
 				else {
 					if (engine.getChar(2).dead()){
-						rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/dead.png")))));
+						rec2.setFill(dead_elsa);
 						this.engine.getChar(2).charBox().SetLength(104);
 						this.engine.getChar(2).charBox().SetHeight(24);
 						rec2.setX(engine.getChar(2).positionX()-58);
@@ -873,11 +1055,12 @@ public class realTimeDealer extends Thread {
 						rec2.setWidth(engine.getChar(2).charBox().Length());
 						rectech2.setStrokeWidth(0);
 						engine.getChar(2).charBox().MoveTo(engine.getChar(2).positionX()-58, engine.getChar(2).positionY()+75);
-
+						
+						exit=true;
 					}
 					else{
 						if (this.engine.getChar(2).isBlockstunned()){
-							rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/blockstunned.png")))));
+							rec2.setFill(blockstunned_elsa);
 							this.engine.getChar(2).charBox().SetLength(53);
 							this.engine.getChar(2).charBox().SetHeight(99);
 							rec2.setX(engine.getChar(2).positionX());
@@ -887,7 +1070,7 @@ public class realTimeDealer extends Thread {
 							rectech2.setStrokeWidth(0);
 						}
 						else if (this.engine.getChar(2).isHitstunned()){
-							rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/hitstunned.png")))));
+							rec2.setFill(hitstunned_elsa);
 							this.engine.getChar(2).charBox().SetLength(52);
 							this.engine.getChar(2).charBox().SetHeight(75);
 							rec2.setX(engine.getChar(2).positionX());
@@ -900,19 +1083,19 @@ public class realTimeDealer extends Thread {
 							if (this.engine.getChar(2).isTeching()){
 								if (techcycle2[0]>0){
 									if (tech2=="punch"){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/punch1.png")))));
+										rec2.setFill(punch1_elsa);
 										this.engine.getChar(2).charBox().SetLength(38);
 										this.engine.getChar(2).charBox().SetHeight(64);
 										rec2.setX(engine.getChar(2).positionX());
 									}
 									else if (tech2=="kick"){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/kick1.png")))));
+										rec2.setFill(kick1_elsa);
 										this.engine.getChar(2).charBox().SetLength(67);
 										this.engine.getChar(2).charBox().SetHeight(97);
 										rec2.setX(engine.getChar(2).positionX());
 									}
 									else if (tech2=="special"){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/special1.png")))));
+										rec2.setFill(special1_elsa);
 										this.engine.getChar(2).charBox().SetLength(57);
 										this.engine.getChar(2).charBox().SetHeight(90);
 										rec2.setX(engine.getChar(2).positionX());
@@ -925,7 +1108,7 @@ public class realTimeDealer extends Thread {
 								else {
 									if (techcycle2[1]>0){
 										if (tech2=="punch"){
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/punch2.png")))));
+											rec2.setFill(punch2_elsa);
 											this.engine.getChar(2).charBox().SetLength(33);
 											this.engine.getChar(2).charBox().SetHeight(61);
 											rec2.setX(engine.getChar(2).positionX());
@@ -935,7 +1118,7 @@ public class realTimeDealer extends Thread {
 										}
 
 										else if (tech2=="kick"){
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/kick2.png")))));
+											rec2.setFill(kick2_elsa);
 											this.engine.getChar(2).charBox().SetLength(46);
 											this.engine.getChar(2).charBox().SetHeight(90);
 											rec2.setX(engine.getChar(2).positionX());
@@ -944,7 +1127,7 @@ public class realTimeDealer extends Thread {
 											rec2.setWidth(92);
 										}
 										else if (tech2=="special"){
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/special2.png")))));
+											rec2.setFill(special2_elsa);
 											this.engine.getChar(2).charBox().SetLength(43);
 											this.engine.getChar(2).charBox().SetHeight(97);
 											rec2.setX(engine.getChar(2).positionX());
@@ -963,19 +1146,19 @@ public class realTimeDealer extends Thread {
 									else {
 										if (techcycle2[2]>0){
 											if (tech2=="punch"){
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/punch3.png")))));
+												rec2.setFill(punch3_elsa);
 												this.engine.getChar(2).charBox().SetLength(38);
 												this.engine.getChar(2).charBox().SetHeight(64);
 												rec2.setX(engine.getChar(2).positionX());
 											}
 											else if (tech2=="kick"){
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/kick3.png")))));
+												rec2.setFill(kick3_elsa);
 												this.engine.getChar(2).charBox().SetLength(34);
 												this.engine.getChar(2).charBox().SetHeight(98);
 												rec2.setX(engine.getChar(2).positionX());
 											}
 											else if (tech2=="special"){
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/special3.png")))));
+												rec2.setFill(special3_elsa);
 												this.engine.getChar(2).charBox().SetLength(70);
 												this.engine.getChar(2).charBox().SetHeight(91);
 												rec2.setX(engine.getChar(2).positionX());
@@ -991,7 +1174,7 @@ public class realTimeDealer extends Thread {
 
 							else {
 								if (this.engine.getChar(2).isBlocking()){
-									rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/blocking.png")))));
+									rec2.setFill(blocking_elsa);
 									this.engine.getChar(2).charBox().SetLength(64);
 									this.engine.getChar(2).charBox().SetHeight(99);
 									rec2.setX(engine.getChar(2).positionX());
@@ -1002,7 +1185,7 @@ public class realTimeDealer extends Thread {
 								}
 								else {
 									if (this.engine.getChar(2).getVSpeed()>0){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/jumping1.png")))));
+										rec2.setFill(jumping1_elsa);
 										this.engine.getChar(2).charBox().SetLength(47);
 										this.engine.getChar(2).charBox().SetHeight(76);
 										rec2.setX(engine.getChar(2).positionX());
@@ -1012,7 +1195,7 @@ public class realTimeDealer extends Thread {
 										rectech2.setStrokeWidth(0);
 									}
 									else if (this.engine.getChar(2).getVSpeed()<0){
-										rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/jumping2.png")))));
+										rec2.setFill(jumping2_elsa);
 										this.engine.getChar(2).charBox().SetLength(76);
 										this.engine.getChar(2).charBox().SetHeight(115);
 										rec2.setX(engine.getChar(2).positionX());
@@ -1025,7 +1208,7 @@ public class realTimeDealer extends Thread {
 									else{
 										if (c2==Commande.NEUTRAL){
 											wcycle2=0;
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/idle.png")))));
+											rec2.setFill(idle_elsa);
 											this.engine.getChar(2).charBox().SetLength(46);
 											this.engine.getChar(2).charBox().SetHeight(99);
 											rec2.setX(engine.getChar(2).positionX());
@@ -1036,7 +1219,7 @@ public class realTimeDealer extends Thread {
 										}
 										if ((c2==Commande.LEFT)||(c2==Commande.RIGHT)){
 											if ((wcycle2%12)<6){
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/walk1.png")))));
+												rec2.setFill(walk1_elsa);
 												this.engine.getChar(2).charBox().SetLength(59);
 												this.engine.getChar(2).charBox().SetHeight(99);
 												rec2.setX(engine.getChar(2).positionX());
@@ -1046,7 +1229,7 @@ public class realTimeDealer extends Thread {
 												rectech2.setStrokeWidth(0);
 											}	
 											else{
-												rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/walk2.png")))));
+												rec2.setFill(walk2_elsa);
 												this.engine.getChar(2).charBox().SetLength(58);
 												this.engine.getChar(2).charBox().SetHeight(99);
 												rec2.setX(engine.getChar(2).positionX());
@@ -1058,7 +1241,7 @@ public class realTimeDealer extends Thread {
 										}
 
 										if (c2==Commande.CROUCH){
-											rec2.setFill(new ImagePattern(new Image(Files.newInputStream(Paths.get("res/sprites/elsa/crouching.png")))));
+											rec2.setFill(crouching_elsa);
 											this.engine.getChar(2).charBox().SetLength(38);
 											this.engine.getChar(2).charBox().SetHeight(64);
 											rec2.setX(engine.getChar(2).positionX());
